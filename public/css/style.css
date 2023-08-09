@@ -9,7 +9,7 @@ header {
     padding: 10px;
 }
 .painel {
-    max-width: 800px;
+    max-width: 1600px;
     margin: 20px auto;
     padding: 20px;
     border: 1px solid #ddd;
@@ -33,4 +33,7 @@ button {
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+}
+.none{
+    text-decoration: none;
 }

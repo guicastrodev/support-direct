@@ -2,7 +2,7 @@
 
 @section('content')
 <header>
-    <h1>{{ Auth::user()->name }}</h1>
+    <h5>{{ Auth::user()->name }}</h5>
 </header>
 <div class="painel">
     <button id="newTicket">Novo Ticket</button>
@@ -12,15 +12,21 @@
             <th>Título</th>
             <th>Criado Em</th>
             <th>Situação</th>
-            <th>Última Atualização</th>
+            <th>Categoria</th>
+            <th>Requerente</th>
         </tr>
-        <tr>
-            <td>010138</td>
-            <td>Problema de conexão com a internet</td>
-            <td>2023-07-15 10:30</td>
-            <td>Aguardando Requerente</td>
-            <td>6 horas</td>
-        </tr>
+        @foreach ($chamados as $chamado)
+        <a href="http://www.google.com.br">
+            <tr>
+                <td>{{ $chamado->id }}</td>
+                <td>{{ $chamado->titulo }}</td>
+                <td>{{ date('d/m/Y H:i:s', strtotime($chamado->created_at)) }}</td>
+                <td>{{ $chamado->status }}</td>
+                <td>{{ $chamado->categoria }}</td>
+                <td>{{ $chamado->requerente->name }}</td>
+            </tr>
+        </a>
+        @endforeach
     </table>
 </div>
 @endsection

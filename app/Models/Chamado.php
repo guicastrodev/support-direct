@@ -13,6 +13,11 @@ class Chamado extends Model
         'titulo',
         'descricao',
         'status',
+        'requerenteID',
+        'tecnicoID',
+        'gestorID',
+        'categoria',
+        'prioridade',
     ];
 
     protected $dates = [
@@ -38,4 +43,19 @@ class Chamado extends Model
             return 'Nunca atualizado';
         }
     }
+
+    public function requerente()
+    {
+        return $this->belongsTo(User::class, 'requerenteID');
+    }
+
+    public function tecnico()
+    {
+        return $this->belongsTo(User::class, 'tecnicoID');
+    }
+
+    public function gestor()
+    {
+        return $this->belongsTo(User::class, 'gestorID');
+    }    
 }
