@@ -57,5 +57,10 @@ class Chamado extends Model
     public function gestor()
     {
         return $this->belongsTo(User::class, 'gestorID');
+    } 
+    
+    public function iteracoes()
+    {
+        return $this->hasMany(Iteracao::class,'chamadoID');
     }    
 }

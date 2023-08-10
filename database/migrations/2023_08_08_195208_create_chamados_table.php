@@ -16,7 +16,6 @@ class CreateChamadosTable extends Migration
         Schema::create('chamados', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->text('descricao');
             $table->enum('status', ['Em andamento', 'Resolvido', 'Cancelado','Aguardando Requerente','Aguardando Fornecedor'])->default('Em andamento');
             $table->timestamps();
         });

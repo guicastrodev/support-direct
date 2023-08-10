@@ -24,7 +24,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $chamados = Chamado::all();    
+        $userID = auth()->id();  
+        $userType = auth()->user()->tipo;  
+
+        switch ($userType) {
+            case 'cliente':
+                $chamados = Chamado::where('requerenteID', $userID )->get();
+                break;
+            case 'tecnico':
+                $chamados = Chamado::where('tecnicoID', $userID )->get();
+                break;
+            case 'gestor':
+                $chamados = Chamado::where('gestorID', $userID )->get();
+                break;
+            default:
+                // O tipo do usuário é uma informação obrigatória!
+                break;
+        } 
+        
         return view('home', compact('chamados'));
     }
+
 }
