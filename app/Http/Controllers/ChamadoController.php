@@ -13,7 +13,7 @@ class ChamadoController extends Controller
         $categorias = ['Rede', 'Software', 'Materiais', 'Hardware', 'Segurança'];
         $prioridades = ['baixa', 'media', 'alta'];
 
-        if ($id = 'novo') {
+        if ($id == 'novo') {
             return view('novochamado', compact('categorias', 'prioridades'));
         } else {
             $chamado = Chamado::findOrFail($id);
