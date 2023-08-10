@@ -20,7 +20,6 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/chamados/{id}',[App\Http\Controllers\ChamadoController::class, 'show'])->name('chamado.show');
-Route::get('/chamados/new',[App\Http\Controllers\ChamadoController::class, 'new'])->name('chamado.new');
 Route::put('/chamados/{id}', [App\Http\Controllers\ChamadoController::class, 'update'])->name('chamado.update');
 
 Auth::routes();

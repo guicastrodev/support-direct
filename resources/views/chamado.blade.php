@@ -5,7 +5,8 @@
     <form action="{{ route('chamado.update', $chamado->id) }}" method="POST">
         @csrf
         @method('PUT')
-        <h5>{{ $chamado->titulo }}</h5>
+        <h4><b>#{{ $chamado->id }}</b></h4>
+        <label>{{ $chamado->titulo }}</label>
         <label for="categoria">Categoria:</label>
         <select name="categoria" id="categoria">
             @foreach ($categorias as $categoria)
@@ -27,18 +28,18 @@
         <div class="chamado-descricoes">
             @foreach ($chamado->iteracoes as $iteracao)
             <textarea disabled name="" id="" style="width:100%">{{ $iteracao->descricao }}</textarea>
-            <p>Responsável: {{ $iteracao->usuario->nome }}</p>
+            <p>{{ date('d/m/Y H:i', strtotime($iteracao->datahora )) }} : {{ $iteracao->usuario->nome }}</p>
             @endforeach
         </div>
 
-        <button type="button">+ Comentário</button>
-        <button type="button">+ Comentário Padrão</button>
-        <button type="button">Anexos</button>
+        <button type="button" onclick="alertaPrototipo()">+ Comentário</button>
+        <button type="button" onclick="alertaPrototipo()">+ Comentário Padrão</button>
+        <button type="button" onclick="alertaPrototipo()">Anexos</button>
 
         <select name="responsavel" id="responsavel">
-            @foreach ($responsaveis as $responsavel)
-            <option value="{{ $responsavel->id }}" {{ $chamado->responsavel_id == $responsavel->id ? 'selected' : '' }}>
-                {{ $responsavel->nome }}
+            @foreach ($tecnicos as $tecnico)
+            <option value="{{ $tecnico->id }}" {{ $chamado->responsavelID == $tecnico->id ? 'selected' : '' }}>
+                {{ $tecnico->nome }}
             </option>
             @endforeach
         </select>
@@ -51,8 +52,9 @@
             @endforeach
         </select>
 
-        <button type="submit">Confirmar</button>
-        <a href="{{route('chamado.show',$chamado->id)}}">Cancelar</a>
+        <button type="submit" onclick="alertaPrototipo()">Confirmar</button>
+        <button>Cancelar<a class="none" href="{{route('chamado.show',$chamado->id)}}"></a></button>    
     </form>
+    
 </div>
 @endsection

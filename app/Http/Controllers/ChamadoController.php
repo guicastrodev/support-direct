@@ -10,19 +10,18 @@ class ChamadoController extends Controller
 {
     public function show($id)
     {
-
-        $chamado = Chamado::findOrFail($id);
-        $categorias = ['Rede','Software','Materiais','Hardware','Segurança'];
+        $categorias = ['Rede', 'Software', 'Materiais', 'Hardware', 'Segurança'];
         $prioridades = ['baixa', 'media', 'alta'];
-        $responsaveis = User::where('tipo', 'tecnico')->get();
-        $situacoes = ['aberto', 'em andamento', 'fechado'];   
 
-        return view('chamado', compact('chamado', 'categorias', 'prioridades', 'responsaveis', 'situacoes'));
-    }
+        if ($id = 'novo') {
+            return view('novochamado', compact('categorias', 'prioridades'));
+        } else {
+            $chamado = Chamado::findOrFail($id);
+            $tecnicos = User::where('tipo', 'tecnico')->get();
+            $situacoes = ['Em andamento', 'Resolvido', 'Cancelado', 'Aguardando Requerente', 'Aguardando Fornecedor'];
 
-    public function new()
-    {
-        //return view('chamado', compact('chamado', 'categorias', 'prioridades', 'responsaveis', 'situacoes'));
+            return view('chamado', compact('chamado', 'categorias', 'prioridades', 'tecnicos', 'situacoes'));
+        }
     }
 
     public function update(Request $request, $id)
@@ -44,5 +43,5 @@ class ChamadoController extends Controller
         $chamado->save();
 
         return redirect()->route('chamados.show', $chamado->id)->with('success', 'Chamado atualizado com sucesso.');
-    } 
+    }
 }

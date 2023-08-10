@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/util.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -25,7 +26,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container mx-2" >
+            <div class="container mx-2">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Support Direct') }}
                 </a>
@@ -78,6 +79,9 @@
         </nav>
 
         <main class="py-4">
+            <header>
+                <h5 class="my-2">{{ Auth::user()->name }}</h5>
+            </header>
             @yield('content')
         </main>
     </div>
