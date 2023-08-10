@@ -79,9 +79,11 @@
         </nav>
 
         <main class="py-4">
+            @isset(Auth::user()->name)
             <header>
                 <h5 class="my-2">{{ Auth::user()->name }}</h5>
             </header>
+            @endisset
             @yield('content')
         </main>
     </div>
