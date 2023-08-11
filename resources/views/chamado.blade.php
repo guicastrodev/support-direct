@@ -39,8 +39,9 @@
             <p>{{ date('d/m/Y H:i', strtotime($iteracao->datahora )) }} : {{ $iteracao->usuario->name }}</p>
             @endforeach
         </div>
-
-        <button type="button" onclick="alertaPrototipo()">+ Comentário</button>
+        @if($perfil!='gestor')
+            <button type="button" onclick="alertaPrototipo()">+ Comentário</button>
+        @endif
         @if($perfil=='tecnico')
             <button type="button" onclick="alertaPrototipo()">+ Comentário Padrão</button>
         @endif
@@ -60,7 +61,7 @@
             <select name="responsavel" id="responsavel">
             @foreach ($tecnicos as $tecnico)
             <option value="{{ $tecnico->id }}" {{ $chamado->tecnicoID == $tecnico->id ? 'selected' : '' }}>
-                {{ $tecnico->nome }}
+                {{ $tecnico->name }}
             </option>
             @endforeach
         </select>
