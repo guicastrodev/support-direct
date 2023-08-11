@@ -5,19 +5,27 @@
     <form action="{{ route('chamado.update', $chamado->id) }}" method="POST">
         @csrf
         @method('PUT')
-        <h4><b>#{{ $chamado->id }}</b></h4>
+        <h4><b>Ticket #{{ $chamado->id }}</b></h4>
         <label>{{ $chamado->titulo }}</label>
         <label for="categoria">Categoria:</label>
-        <select name="categoria" id="categoria">
+        @if($perfil!='gestor')
+            <select name="categoria" id="categoria">
+        @else
+            <select disabled name="categoria" id="categoria">
+        @endif
             @foreach ($categorias as $categoria)
             <option value="{{ $categoria }}" {{ $chamado->categoria == $categoria ? 'selected' : '' }}>
                 {{ $categoria }}
             </option>
             @endforeach
         </select>
-
+        
         <label for="prioridade">Prioridade:</label>
-        <select name="prioridade" id="prioridade">
+        @if($perfil!='gestor')
+            <select disabled name="prioridade" id="prioridade">
+        @else
+            <select name="prioridade" id="prioridade">
+        @endif            
             @foreach ($prioridades as $prioridade)
             <option value="{{ $prioridade }}" {{ $chamado->prioridade == $prioridade ? 'selected' : '' }}>
                 {{ ucfirst($prioridade) }}
@@ -28,23 +36,42 @@
         <div class="chamado-descricoes">
             @foreach ($chamado->iteracoes as $iteracao)
             <textarea disabled name="" id="" style="width:100%">{{ $iteracao->descricao }}</textarea>
-            <p>{{ date('d/m/Y H:i', strtotime($iteracao->datahora )) }} : {{ $iteracao->usuario->nome }}</p>
+            <p>{{ date('d/m/Y H:i', strtotime($iteracao->datahora )) }} : {{ $iteracao->usuario->name }}</p>
             @endforeach
         </div>
 
         <button type="button" onclick="alertaPrototipo()">+ Comentário</button>
-        <button type="button" onclick="alertaPrototipo()">+ Comentário Padrão</button>
-        <button type="button" onclick="alertaPrototipo()">Anexos</button>
+        @if($perfil=='tecnico')
+            <button type="button" onclick="alertaPrototipo()">+ Comentário Padrão</button>
+        @endif
 
-        <select name="responsavel" id="responsavel">
+        @if($perfil!='gestor')
+            <button type="button" onclick="alertaPrototipo()">Anexos</button>
+        @endif
+        
+
+        @if($perfil=='cliente')
+            @if(isset($chamado->tecnico))
+            <input type="text" disabled name="responsavel" id="responsavel" value="{{$chamado->tecnico->name}}">
+            @else
+            <input type="text" disabled name="responsavel" id="responsavel">
+            @endif
+        @else
+            <select name="responsavel" id="responsavel">
             @foreach ($tecnicos as $tecnico)
-            <option value="{{ $tecnico->id }}" {{ $chamado->responsavelID == $tecnico->id ? 'selected' : '' }}>
+            <option value="{{ $tecnico->id }}" {{ $chamado->tecnicoID == $tecnico->id ? 'selected' : '' }}>
                 {{ $tecnico->nome }}
             </option>
             @endforeach
         </select>
+        @endif        
 
-        <select name="situacao" id="situacao">
+        @if($perfil=='gestor')
+            <select disabled name="situacao" id="situacao">
+        @else
+            <select name="situacao" id="situacao">
+        @endif            
+
             @foreach ($situacoes as $situacao)
             <option value="{{ $situacao }}" {{ $chamado->situacao == $situacao ? 'selected' : '' }}>
                 {{ ucfirst($situacao) }}
@@ -52,8 +79,9 @@
             @endforeach
         </select>
 
-        <button type="submit" onclick="alertaPrototipo()">Confirmar</button>
-        <button>Cancelar<a class="none" href="{{route('chamado.show',$chamado->id)}}"></a></button>    
+        <button type="submit">Cancelar</button>               
+        <button type="submit" onclick="alertaPrototipo()">Confirmar</button>        
+        
     </form>
     
 </div>

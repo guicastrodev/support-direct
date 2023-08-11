@@ -81,7 +81,8 @@
         <main class="py-4">
             @isset(Auth::user()->name)
             <header>
-                <h5 class="my-2">{{ Auth::user()->name }}</h5>
+                <h5 class="my-2"><b>{{ Auth::user()->name }} </b></h5>
+                <h6><i>({{ Auth::user()->tipo }})</i></h6>
             </header>
             @endisset
             @yield('content')

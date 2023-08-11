@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="painel">
-        <input width="70%" placeholder="Título"></input>        
+        <input type="text" placeholder="Título"></input>        
         <label for="categoria">Categoria:</label>
         <select name="categoria" id="categoria">
             @foreach ($categorias as $categoria)

@@ -25,9 +25,9 @@ class HomeController extends Controller
     public function index()
     {
         $userID = auth()->id();  
-        $userType = auth()->user()->tipo;  
+        $perfil = auth()->user()->tipo;  
 
-        switch ($userType) {
+        switch ($perfil) {
             case 'cliente':
                 $chamados = Chamado::where('requerenteID', $userID )->get();
                 break;
@@ -42,7 +42,7 @@ class HomeController extends Controller
                 break;
         } 
         
-        return view('home', compact('chamados'));
+        return view('home', compact('chamados','perfil'));
     }
 
 }
