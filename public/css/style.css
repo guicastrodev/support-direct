@@ -3,38 +3,158 @@ body {
     margin: 0;
     padding: 0;
 }
+
 header {
     background-color: #333;
     color: #fff;
     padding: 10px;
 }
+
 .painel {
     max-width: 1600px;
     margin: 20px auto;
     padding: 20px;
     border: 1px solid #ddd;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
-th, td {
+
+th,
+td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
+
 th {
     background-color: #f2f2f2;
 }
+
 button {
     background-color: #333;
     color: #fff;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.847);        
 }
-.none{
+
+button a{
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none
+}
+
+button:hover,
+button a:hover {
+    background-color: #444;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.847);            
+}
+
+button:active {
+    background-color: #444;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.747);    
+}
+
+.none {
     text-decoration: none;
     color: #212529;
+}
+
+
+.menu {
+    background-color: #333;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.menu ul {
+    display: flex;
+    justify-content: center;
+    padding: 0 0;
+    list-style: none;
+}
+
+.menu li.active {
+    background-color: #444;
+    color: white;
+    border: 1px solid #333;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.747);
+}
+
+.menu li {
+    padding: 10px 2.5vw;
+    border: 1px solid #333;
+}
+
+.menu li:hover {
+    background-color: #444;
+    border: 1px solid #444;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.747);
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.ticket-details {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.form-group-70 {
+    width: 70%;
+    text-align: left;
+}
+
+.form-group-50 {
+    display: flex;
+    width: 50%;
+    align-items: center;
+}
+
+.form-group-15 {
+    width: 15%;
+    text-align: left;
+}
+
+.form-group-30 {
+    width: 30%;
+    text-align: left;
+}
+
+.form-group-70 input,
+.form-group-30 input,
+.form-group-30 button{
+    width: 90%;
+}
+
+.form-group-30 button{
+    margin-top: 10px;
+}
+.form-group-15 select,
+.form-group-30 select {    
+    width: 90%;
+    padding: 4px;
+}
+
+.form-group-15 input,
+.form-group-30 input {
+    width: 90%;
+    box-sizing: border-box;
+}
+
+.form-group-70 label,
+.form-group-15 label,
+.form-group-30 label{
+    display: block;
 }

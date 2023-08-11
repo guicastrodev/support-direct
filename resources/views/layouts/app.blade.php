@@ -80,10 +80,27 @@
 
         <main class="py-4">
             @isset(Auth::user()->name)
-            <header>
+            <header class="mb-4">
                 <h5 class="my-2"><b>{{ Auth::user()->name }} </b></h5>
                 <h6><i>({{ Auth::user()->tipo }})</i></h6>
             </header>
+            @auth
+                @isset($perfil)
+                    @if($perfil!='cliente')
+                    <nav class="menu">
+                        <ul>                    
+                            <li><a onclick="alertaPrototipo()" href="#">Home</a></li>
+                            <li class="{{ Request::is('tickets') ? 'active' : '' }}"><a href="{{route('tickets')}}">Tickets</a></li>
+                            @if($perfil=='gestor')
+                            <li><a onclick="alertaPrototipo()" href="#">Relatórios</a></li>
+                            <li><a onclick="alertaPrototipo()" href="#">Usuários</a></li>
+                            @endif                    
+                            <li><a onclick="alertaPrototipo()" href="#">Configurações</a></li>
+                        </ul>
+                    </nav>
+                    @endif
+                @endisset
+            @endauth
             @endisset
             @yield('content')
         </main>

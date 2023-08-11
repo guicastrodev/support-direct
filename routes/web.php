@@ -13,13 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    /*return view('welcome');*/
-    return redirect('login');
-});
+Route::get('/', function () {return redirect('login');});
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/chamados/{id}',[App\Http\Controllers\ChamadoController::class, 'show'])->name('chamado.show');
-Route::put('/chamados/{id}', [App\Http\Controllers\ChamadoController::class, 'update'])->name('chamado.update');
+Route::middleware('auth')->get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware('auth')->get('/tickets', [App\Http\Controllers\TicketsController::class, 'index'])->name('tickets');
+Route::middleware('auth')->get('/chamado/{id}',[App\Http\Controllers\TicketsController::class, 'show'])->name('chamado.show');
+Route::middleware('auth')->put('/chamado/{id}', [App\Http\Controllers\TicketsController::class, 'update'])->name('chamado.update');
 
 Auth::routes();
