@@ -30,41 +30,19 @@ td {
     text-align: left;
 }
 
+td a{
+    text-decoration: none;
+    color: var(--bs-body-color);
+}
+
 th {
     background-color: #f2f2f2;
 }
 
-button {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.847);        
-}
+.trsel:hover{
+    background-color: #f2f2f2;
 
-button a{
-    color: #fff;
-    cursor: pointer;
-    text-decoration: none
 }
-
-button:hover,
-button a:hover {
-    background-color: #444;
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.847);            
-}
-
-button:active {
-    background-color: #444;
-    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.747);    
-}
-
-.none {
-    text-decoration: none;
-    color: #212529;
-}
-
 
 .menu {
     background-color: #333;
@@ -105,56 +83,182 @@ button:active {
     transition: color 0.3s;
 }
 
-.ticket-details {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 20px;
-}
-
-.form-group-70 {
+/*
+.group-70 {
     width: 70%;
     text-align: left;
+    min-width: 415px;
 }
 
-.form-group-50 {
-    display: flex;
+.group-50 {
+
     width: 50%;
     align-items: center;
 }
 
-.form-group-15 {
+.group-15 {
     width: 15%;
     text-align: left;
+    min-width: 130px;
 }
 
-.form-group-30 {
+.group-30 {
     width: 30%;
     text-align: left;
 }
 
-.form-group-70 input,
-.form-group-30 input,
-.form-group-30 button{
+.group-70 input,
+.group-30 input,
+.group-30 button,
+.group-15 input{
     width: 90%;
+    min-width: 130px;    
 }
 
-.form-group-30 button{
+.group-30 button{
     margin-top: 10px;
 }
-.form-group-15 select,
-.form-group-30 select {    
+.group-15 select,
+.group-30 select {    
     width: 90%;
+    min-width: 130px;        
     padding: 4px;
 }
 
-.form-group-15 input,
-.form-group-30 input {
-    width: 90%;
-    box-sizing: border-box;
+.group-15 label,
+.group-30 label,
+.group-70 label{
+    display: block;
+}
+*/
+
+.container-flex {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
-.form-group-70 label,
-.form-group-15 label,
-.form-group-30 label{
+.container-flex input[type="file"] {
+    display: none;
+}
+
+.group-flex{
+    flex: 1; 
+    min-width: 450px; 
+    margin: 5px 10px 5px 0;    
+}
+
+.group-flex textarea {
+    width: 100%;
+    resize: none;    
+    border: 1px solid #ccc;
+    box-sizing: border-box;    
+    height: auto;
+}
+
+.group-fix{
+    width: 130px; 
+    margin: 5px;    
+}
+
+.group-fix select{
+    padding: 4px;
+}
+
+.group-fix label,
+.group-fix select,
+.group-fix input,
+.group-flex label,
+.group-flex input
+{    
     display: block;
+    width: 100%;
+}
+
+.btn-left {
+    margin-right: auto !important; 
+}
+  
+.btn-right {
+    margin-left: auto !important;
+}
+
+.btn-link,
+.btn-img  {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.847);        
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-link{
+    width: 130px;    
+    padding: 15px 20px;    
+    margin: 5px;
+}
+.btn-img  {
+    width: 100px;
+    height: 50px;
+    margin: 5px 10px; 
+    padding: 10px 35px;           
+}
+
+.btn-img img,
+.btn-img label{
+    width: 100%;
+}
+
+.btn-link:hover,
+.btn-img:hover {    
+    background-color: #444;
+    color: #fff;
+    box-shadow: none;
+}
+
+.btn-link:active,
+.btn-img:active {    
+    background-color: #444;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.747);    
+}
+
+.btn-disabled
+ {    
+    background-color: #868686;
+    color: #dad8d8;
+    box-shadow: none;
+    cursor: auto;            
+}
+
+.btn-disabled:hover
+ {    
+    background-color: #868686;
+    color: #dad8d8;
+    box-shadow: none;
+    cursor: auto;            
+}
+
+
+.btn-img input[type="file"] {
+    display: none;
+}
+  
+.two-columns{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.left-col{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.right-col{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
 }

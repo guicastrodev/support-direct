@@ -3,11 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Chamado;
 use App\Models\User;
+use App\Models\Iteracao;
+use App\Models\Anexo;
+
 
 class TicketsController extends Controller
 {
+    public function NovaIteracao($chamadoID, $usuarioID, $descricao, $files)
+    {
+        $iteracao = new Iteracao;
+        $iteracao->descricao = $descricao;
+        $iteracao->datahora = Now();
+        $iteracao->usuarioID = $usuarioID;
+        $iteracao->chamadoID = $chamadoID;
+        $iteracao->save();
+
+        $localAnexo = '/anexos/';
+
+        if (!is_null($files)) {
+            foreach ($files as $file) {
+                Storage::disk('ftp')->put($localAnexo . $file->getClientOriginalName(), file_get_contents($file));
+
+                $anexo = new Anexo;
+                $anexo->nome = $file->getClientOriginalName();
+                $anexo->localizacao = $localAnexo;
+                $anexo->iteracaoID = $iteracao->id;
+                $anexo->save();
+            }
+        }
+    }
+
     public function index()
     {
         $userID = auth()->id();
@@ -50,20 +78,59 @@ class TicketsController extends Controller
     {
         $chamado = Chamado::findOrFail($id);
 
+        /*
         $request->validate([
             'categoria' => 'required',
             'prioridade' => 'required',
             'responsavel' => 'required',
             'situacao' => 'required',
         ]);
+        */
 
-        $chamado->categoria = $request->categoria;
-        $chamado->prioridade = $request->prioridade;
-        $chamado->responsavelID = $request->responsavel;
-        $chamado->situacao = $request->situacao;
+        if (!is_null($request->categoria)) {
+            $chamado->categoria = $request->categoria;
+        }
+
+        if (!is_null($request->prioridade)) {
+            $chamado->prioridade = $request->prioridade;
+        }
+
+        if (!is_null($request->situacao)) {
+            $chamado->status = $request->situacao;
+        }
+
+        if (!is_null($request->responsavel)) {
+            $chamado->tecnicoID = $request->responsavel;
+        }
 
         $chamado->save();
 
+        if (!is_null($request->descricao)) {
+            $this->NovaIteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));        
+        }
+
         return redirect()->route('chamado.show', $chamado->id)->with('success', 'Chamado atualizado com sucesso.');
+    }
+
+    public function new(Request $request)
+    {
+        $chamado = new Chamado;
+        $chamado->requerenteID = auth()->id();
+        $chamado->titulo = $request->input('titulo');
+        $chamado->categoria = $request->input('categoria');
+        $chamado->prioridade = $request->input('prioridade');
+        $chamado->status = 'Aberto';
+
+        $gestor = User::where('tipo', 'gestor')->first();
+
+        $chamado->gestorID = $gestor->id;
+        $chamado->save();
+
+        
+        if (!is_null($request->descricao)) {
+            $this->NovaIteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));        
+        }
+
+        return redirect()->route('tickets');
     }
 }

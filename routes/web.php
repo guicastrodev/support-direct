@@ -19,5 +19,7 @@ Route::middleware('auth')->get('/home', [App\Http\Controllers\HomeController::cl
 Route::middleware('auth')->get('/tickets', [App\Http\Controllers\TicketsController::class, 'index'])->name('tickets');
 Route::middleware('auth')->get('/chamado/{id}',[App\Http\Controllers\TicketsController::class, 'show'])->name('chamado.show');
 Route::middleware('auth')->put('/chamado/{id}', [App\Http\Controllers\TicketsController::class, 'update'])->name('chamado.update');
+Route::middleware('auth')->post('/ticket', [App\Http\Controllers\TicketsController::class, 'new'])->name('ticket.new');
+Route::middleware('auth')->get('/configuracoes', [App\Http\Controllers\ConfiguracoesController::class, 'index'])->name('configuracoes');
 
 Auth::routes();

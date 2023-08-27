@@ -17,7 +17,7 @@ class CreateIteracoesTable extends Migration
             $table->timestamps();
 
             $table->foreign('usuarioID')->references('id')->on('usuarios');
-            $table->foreign('chamadoID')->references('id')->on('chamados');
+            $table->foreign('chamadoID')->references('id')->on('chamados')->onDelete('cascade');            
         });
     }
 

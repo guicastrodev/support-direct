@@ -27,4 +27,9 @@ class Iteracao extends Model
     {
         return $this->belongsTo(Chamado::class,'chamadoID');
     }
+
+    public function anexos()
+    {
+        return $this->hasMany(Anexo::class,'iteracaoID');
+    } 
 }

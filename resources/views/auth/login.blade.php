@@ -17,7 +17,6 @@
                                 </div>
 
                             <div class="input-group">
-                            <!-- <input id="email" type="email" placeholder="{{ __('E-mail') }}" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus> -->
                             <input id="email" type="email" placeholder="{{ __('E-mail') }}" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" autofocus>                                
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -33,7 +32,6 @@
                                 </div>
 
                             <div class="input-group">                                
-                            <!-- <input id="password" type="password" placeholder="{{ __('Senha') }}" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"> -->
                             <input id="password" type="password" placeholder="{{ __('Senha') }}" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">                            
 
                                 @error('password')
@@ -58,12 +56,12 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit">
+                            <button class="btn-link" type="submit">
                                     {{ __('Entrar') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link none" href="{{ route('password.request') }}">
+                                    <a href="{{ route('password.request') }}">
                                         {{ __('Esqueceu Sua Senha?') }}
                                     </a>
                                 @endif
