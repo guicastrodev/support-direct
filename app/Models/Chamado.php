@@ -24,24 +24,26 @@ class Chamado extends Model
         'created_at', 'updated_at',
     ];
 
-    // Relaciona a última atualização em horas ou dias
     public function ultimaAtualizacao()
     {
         $agora = now();
         $ultimaAtualizacao = $this->updated_at;
 
-        if ($ultimaAtualizacao) {
+        if ($ultimaAtualizacao && $ultimaAtualizacao <= $agora) {
             $diferenca = $agora->diff($ultimaAtualizacao);
-            if ($diferenca->d > 0) {
-                return $diferenca->d . ' dias atrás';
+            if ($diferenca->days > 366)
+                return 'Mais de um ano';
+            elseif ($diferenca->days >0) {
+                return $diferenca->days . ' dias atrás';
             } elseif ($diferenca->h > 0) {
                 return $diferenca->h . ' horas atrás';
             } else {
                 return 'Menos de uma hora atrás';
             }
         } else {
-            return 'Nunca atualizado';
+            return ' ';
         }
+
     }
 
     public function requerente()
