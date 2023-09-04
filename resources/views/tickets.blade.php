@@ -11,36 +11,36 @@
     @endif   
     </div>
     <table>
-        <tr style="width:100% !important;">
+        <tr>
         @if($perfil=='cliente')
-            <th width=3%></th>
-            <th width=8% style="min-width: 57px;">ID</th>
-            <th width=25% style="min-width: 290px;">Título</th>
-            <th width=15% style="min-width: 127px;">Criado Em</th>            
-            <th width=17% style="min-width: 130px;">Técnico</th>
-            <th width=17% style="min-width: 167px;">Situação</th>
-            <th width=15% style="min-width: 120px;">Ultima Atualização</th>
+            <th style="width:3vw; min-width: 10px;"></th>
+            <th style="width:8vw; min-width: 57px;">ID</th>
+            <th style="width:25vw; min-width: 290px;">Título</th>
+            <th style="width:15vw; min-width: 127px;">Criado Em</th>            
+            <th style="width:17vw; min-width: 130px;">Técnico</th>
+            <th style="width:17vw; min-width: 167px;">Situação</th>
+            <th style="width:15vw; min-width: 120px;">Ultima Atualização</th>            
         @endif
 
-        @if($perfil=='tecnico')                    
-            <th width=5% style="min-width: 57px;">ID</th>
-            <th width=12% style="min-width: 290px;">Título</th>
-            <th width=12% style="min-width: 127px;">Criado Em</th>            
-            <th width=12% style="min-width: 130px;">Requerente</th>
-            <th width=10% style="min-width: 106px;">Categoria</th>            
-            <th width=15% style="min-width: 167px;">Situação</th>
-            <th width=7% style="min-width: 80px;">Prioridade</th>
+        @if($perfil=='tecnico')        
+            <th style="width:7vw; min-width: 57px;">ID</th>
+            <th style="width:25vw; min-width: 290px;">Título</th>
+            <th style="width:14vw; min-width: 127px;">Criado Em</th>            
+            <th style="width:17vw; min-width: 130px;">Requerente</th>
+            <th style="width:14vw; min-width: 106px;">Categoria</th>            
+            <th style="width:17vw; min-width: 167px;">Situação</th>
+            <th style="width:8vw; min-width: 80px;">Prioridade</th>
         @endif            
 
         @if($perfil=='gestor')
-            <th width=6% style="min-width: 57px;">ID</th>
-            <th width=25% style="min-width: 290px;">Título</th>
-            <th width=12% style="min-width: 127px;">Criado Em</th>            
-            <th width=13% style="min-width: 130px;">Requerente</th>
-            <th width=13% style="min-width: 130px;">Técnico</th>
-            <th width=10% style="min-width: 106px;">Categoria</th>            
-            <th width=15% style="min-width: 167px;">Situação</th>
-            <th width=8% style="min-width: 80px;">Prioridade</th>
+            <th style="width:6vw; min-width: 57px;">ID</th>
+            <th style="width:25vw; min-width: 290px;">Título</th>
+            <th style="width:12vw; min-width: 127px;">Criado Em</th>            
+            <th style="width:13vw; min-width: 130px;">Requerente</th>
+            <th style="width:13vw; min-width: 130px;">Técnico</th>
+            <th style="width:10vw; min-width: 106px;">Categoria</th>            
+            <th style="width:15vw; min-width: 167px;">Situação</th>
+            <th style="width:8vw; min-width: 80px;">Prioridade</th>
         @endif            
 
         </tr>

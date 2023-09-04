@@ -48,19 +48,24 @@
                     </header>
                     @auth
                         @isset($perfil)
-                            @if($perfil!='cliente')
+                        @if($perfil!='cliente')
                                 <nav class="menu">
-                                    <ul>
+                                    <ul class="mb-0">
                                         <li><a onclick="alertaPrototipo()" href="#">Home</a></li>
                                         <li class="{{ Request::is('tickets') ? 'active' : '' }}"><a href="{{route('tickets')}}">Tickets</a></li>
                                         @if($perfil=='gestor')
                                             <li><a onclick="alertaPrototipo()" href="#">Relatórios</a></li>
-                                        @endif
+                                            @endif
                                         <li class="has-submenu">
                                             <a href="#">Configurações</a>
                                             <ul class="submenu">
+                                                @if($perfil=='gestor')
                                                 <li><a href="{{route('configuracoes.usuarios')}}">Usuários</a></li>
                                                 <li><a href="{{route('configuracoes.categorias')}}">Categorias</a></li>
+                                                @endif
+                                                @if($perfil=='tecnico')
+                                                <li><a href="{{route('configuracoes.usuarios')}}">Comentários Padrões</a></li>                                                
+                                                @endif
                                             </ul>
                                         </li>                                                                                
                                     </ul>
