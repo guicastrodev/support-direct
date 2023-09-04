@@ -56,7 +56,7 @@ class TicketsController extends Controller
                 break;
         }
 
-        return view('tickets', compact('tickets', 'perfil'));
+        return view('tickets', compact('tickets'));
     }
 
     public function show($id)

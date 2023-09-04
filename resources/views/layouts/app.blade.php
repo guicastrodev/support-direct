@@ -55,9 +55,14 @@
                                         <li class="{{ Request::is('tickets') ? 'active' : '' }}"><a href="{{route('tickets')}}">Tickets</a></li>
                                         @if($perfil=='gestor')
                                             <li><a onclick="alertaPrototipo()" href="#">Relatórios</a></li>
-                                            <li><a onclick="alertaPrototipo()" href="#">Usuários</a></li>
                                         @endif
-                                        <li><a href="{{route('configuracoes')}}">Configurações</a></li>
+                                        <li class="has-submenu">
+                                            <a href="#">Configurações</a>
+                                            <ul class="submenu">
+                                                <li><a href="{{route('configuracoes.usuarios')}}">Usuários</a></li>
+                                                <li><a href="{{route('configuracoes.categorias')}}">Categorias</a></li>
+                                            </ul>
+                                        </li>                                                                                
                                     </ul>
                                 </nav>
                             @endif

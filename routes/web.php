@@ -20,6 +20,9 @@ Route::middleware('auth')->get('/tickets', [App\Http\Controllers\TicketsControll
 Route::middleware('auth')->get('/chamado/{id}',[App\Http\Controllers\TicketsController::class, 'show'])->name('chamado.show');
 Route::middleware('auth')->put('/chamado/{id}', [App\Http\Controllers\TicketsController::class, 'update'])->name('chamado.update');
 Route::middleware('auth')->post('/ticket', [App\Http\Controllers\TicketsController::class, 'new'])->name('ticket.new');
-Route::middleware('auth')->get('/configuracoes', [App\Http\Controllers\ConfiguracoesController::class, 'index'])->name('configuracoes');
+Route::middleware('auth')->get('/configuracoes/usuarios', [App\Http\Controllers\ConfiguracoesController::class, 'usuarios'])->name('configuracoes.usuarios');
+Route::middleware('auth')->get('/configuracoes/categorias', [App\Http\Controllers\ConfiguracoesController::class, 'categorias'])->name('configuracoes.categorias');
+Route::middleware('auth')->post('/configuracoes/usuarios', [App\Http\Controllers\ConfiguracoesController::class, 'novousuario'])->name('novo.usuario');
+Route::middleware('auth')->post('/configuracoes/categorias', [App\Http\Controllers\ConfiguracoesController::class, 'novacategoria'])->name('nova.categoria');
 
 Auth::routes();

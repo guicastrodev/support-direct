@@ -21,13 +21,21 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    table-layout: fixed;
+    height: 100vh;
+}
+
+tbody {
+    display: block;
+    overflow-y: scroll;
+    height: calc(100vh - 40px); 
 }
 
 th,
 td {
     border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+    padding: 4px;
+    text-align: left;    
 }
 
 td a{
@@ -39,7 +47,7 @@ th {
     background-color: #f2f2f2;
 }
 
-.trsel:hover{
+.sel:hover{
     background-color: #f2f2f2;
 
 }
@@ -48,6 +56,22 @@ th {
     background-color: #333;
     font-family: Arial, sans-serif;
     text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.747);        
+}
+
+.submenu {
+    background-color: #333;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    display: none!important;
+    position: absolute;
+}
+
+.has-submenu:hover .submenu {
+    display: block!important;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.747);  
+    margin-top: 10px;  
+    margin-left: -2%;
 }
 
 .menu ul {
@@ -63,7 +87,7 @@ th {
     border: 1px solid #333;
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s, border 0.3s;
-    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.747);
+    /* box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.747); */
 }
 
 .menu li {
@@ -74,7 +98,7 @@ th {
 .menu li:hover {
     background-color: #444;
     border: 1px solid #444;
-    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.747);
+    /* box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.747); */
 }
 
 .menu a {
@@ -82,55 +106,6 @@ th {
     text-decoration: none;
     transition: color 0.3s;
 }
-
-/*
-.group-70 {
-    width: 70%;
-    text-align: left;
-    min-width: 415px;
-}
-
-.group-50 {
-
-    width: 50%;
-    align-items: center;
-}
-
-.group-15 {
-    width: 15%;
-    text-align: left;
-    min-width: 130px;
-}
-
-.group-30 {
-    width: 30%;
-    text-align: left;
-}
-
-.group-70 input,
-.group-30 input,
-.group-30 button,
-.group-15 input{
-    width: 90%;
-    min-width: 130px;    
-}
-
-.group-30 button{
-    margin-top: 10px;
-}
-.group-15 select,
-.group-30 select {    
-    width: 90%;
-    min-width: 130px;        
-    padding: 4px;
-}
-
-.group-15 label,
-.group-30 label,
-.group-70 label{
-    display: block;
-}
-*/
 
 .container-flex {
     display: flex;
@@ -145,6 +120,12 @@ th {
 .group-flex{
     flex: 1; 
     min-width: 450px; 
+    margin: 5px 10px 5px 0;    
+}
+
+.group-flex-m{
+    flex: 1; 
+    min-width: 300px; 
     margin: 5px 10px 5px 0;    
 }
 
@@ -169,7 +150,9 @@ th {
 .group-fix select,
 .group-fix input,
 .group-flex label,
-.group-flex input
+.group-flex input,
+.group-flex-m label,
+.group-flex-m input
 {    
     display: block;
     width: 100%;
@@ -262,3 +245,45 @@ th {
     justify-content: flex-end;
     align-items: flex-end;
 }
+
+
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    min-width: 400px;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }

@@ -11,32 +11,41 @@
     @endif   
     </div>
     <table>
-        <tr>
-            @if($perfil=='cliente')
-                <th></th>
-            @endif   
-            <th>ID</th>
-            <th>Título</th>
-            <th>Criado Em</th>            
-            @if($perfil!='cliente')
-                <th>Requerente</th>
-            @endif                
-            @if($perfil!='tecnico')            
-                <th>Técnico</th>
-            @endif                                
-            @if($perfil!='cliente')
-                <th>Categoria</th>            
-            @endif
-            <th>Situação</th>
-            @if($perfil!='cliente')
-                <th>Prioridade</th>
-            @endif
-            @if($perfil=='cliente')
-                <th>Ultima Atualização</th>
-            @endif
+        <tr style="width:100% !important;">
+        @if($perfil=='cliente')
+            <th width=3%></th>
+            <th width=8% style="min-width: 57px;">ID</th>
+            <th width=25% style="min-width: 290px;">Título</th>
+            <th width=15% style="min-width: 127px;">Criado Em</th>            
+            <th width=17% style="min-width: 130px;">Técnico</th>
+            <th width=17% style="min-width: 167px;">Situação</th>
+            <th width=15% style="min-width: 120px;">Ultima Atualização</th>
+        @endif
+
+        @if($perfil=='tecnico')                    
+            <th width=5% style="min-width: 57px;">ID</th>
+            <th width=12% style="min-width: 290px;">Título</th>
+            <th width=12% style="min-width: 127px;">Criado Em</th>            
+            <th width=12% style="min-width: 130px;">Requerente</th>
+            <th width=10% style="min-width: 106px;">Categoria</th>            
+            <th width=15% style="min-width: 167px;">Situação</th>
+            <th width=7% style="min-width: 80px;">Prioridade</th>
+        @endif            
+
+        @if($perfil=='gestor')
+            <th width=6% style="min-width: 57px;">ID</th>
+            <th width=25% style="min-width: 290px;">Título</th>
+            <th width=12% style="min-width: 127px;">Criado Em</th>            
+            <th width=13% style="min-width: 130px;">Requerente</th>
+            <th width=13% style="min-width: 130px;">Técnico</th>
+            <th width=10% style="min-width: 106px;">Categoria</th>            
+            <th width=15% style="min-width: 167px;">Situação</th>
+            <th width=8% style="min-width: 80px;">Prioridade</th>
+        @endif            
+
         </tr>
         @foreach ($tickets as $chamado)
-        <tr class="trsel">
+        <tr class="sel">
             @if($perfil=='cliente')
                 <th><input type="checkbox"></th>
             @endif   
