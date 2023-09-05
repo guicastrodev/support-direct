@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriasTable extends Migration
+class CreateAnexosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateCategoriasTable extends Migration
      */
     public function up()
     {
-        Schema::create('categorias', function (Blueprint $table) {
+        Schema::create('anexos', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo'); 
-            $table->string('descricao'); 
-            $table->string('departamento'); 
+            $table->string('nome');
+            $table->string('localizacao');
+            $table->unsignedBigInteger('iteracaoID');
+            $table->foreign('iteracaoID')->references('id')->on('iteracoes')->onDelete('cascade');            
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateCategoriasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categorias');
+        Schema::dropIfExists('anexos');
     }
 }

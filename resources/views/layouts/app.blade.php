@@ -41,39 +41,35 @@
                 </div>
             </nav>
             <main class="py-4">
-                @isset(Auth::user()->name)
+                @auth
                     <header class="mb-4">
                         <h5 class="my-2"><b>{{ Auth::user()->name }} </b></h5>
-                        <h6><i>({{ Auth::user()->tipo }})</i></h6>
-                    </header>
-                    @auth
-                        @isset($perfil)
-                        @if($perfil!='cliente')
-                                <nav class="menu">
-                                    <ul class="mb-0">
-                                        <li><a onclick="alertaPrototipo()" href="#">Home</a></li>
-                                        <li class="{{ Request::is('tickets') ? 'active' : '' }}"><a href="{{route('tickets')}}">Tickets</a></li>
-                                        @if($perfil=='gestor')
-                                            <li><a onclick="alertaPrototipo()" href="#">Relatórios</a></li>
-                                            @endif
-                                        <li class="has-submenu">
-                                            <a href="#">Configurações</a>
-                                            <ul class="submenu">
-                                                @if($perfil=='gestor')
-                                                <li><a href="{{route('configuracoes.usuarios')}}">Usuários</a></li>
-                                                <li><a href="{{route('configuracoes.categorias')}}">Categorias</a></li>
-                                                @endif
-                                                @if($perfil=='tecnico')
-                                                <li><a href="{{route('configuracoes.usuarios')}}">Comentários Padrões</a></li>                                                
-                                                @endif
-                                            </ul>
-                                        </li>                                                                                
+                        <h6><i>({{$perfil->nome}})</i></h6>
+                    </header>                   
+                    @if($perfil->acesso!='cliente')
+                        <nav class="menu">
+                            <ul class="mb-0">
+                                <li><a onclick="alertaPrototipo()" href="#">Home</a></li>
+                                <li class="{{ Request::is('chamados') ? 'active' : '' }}"><a href="{{route('chamados.lista')}}">Chamados</a></li>
+                                @if($perfil->acesso=='gestor')
+                                    <li><a onclick="alertaPrototipo()" href="#">Relatórios</a></li>
+                                @endif
+                                <li class="has-submenu {{ Request::is('configuracoes/usuarios') || Request::is('configuracoes/categorias') ? 'active' : '' }}">
+                                    <a href="#">Configurações</a>
+                                    <ul class="submenu">
+                                        @if($perfil->acesso=='gestor')
+                                            <li><a href="{{route('configuracoes.usuarios')}}">Usuários</a></li>
+                                            <li><a href="{{route('configuracoes.categorias')}}">Categorias</a></li>
+                                        @endif
+                                        @if($perfil->acesso=='tecnico')
+                                            <li><a href="{{route('configuracoes.usuarios')}}">Comentários <br> Padrões</a></li>                                                
+                                        @endif
                                     </ul>
-                                </nav>
-                            @endif
-                        @endisset
-                    @endauth
-                @endisset
+                                </li>                                                                                
+                            </ul>
+                        </nav>
+                    @endif
+                @endauth
 
                 @yield('content')
                 

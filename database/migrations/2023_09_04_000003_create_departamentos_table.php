@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnexosTable extends Migration
+class CreateDepartamentosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateAnexosTable extends Migration
      */
     public function up()
     {
-        Schema::create('anexos', function (Blueprint $table) {
+        Schema::create('departamentos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('localizacao');
-            $table->unsignedBigInteger('iteracaoID');
+            $table->string('nome'); 
+            $table->string('descricao'); 
             $table->timestamps();
-
-            $table->foreign('iteracaoID')->references('id')->on('iteracoes')->onDelete('cascade');
         });
     }
 
@@ -31,6 +28,6 @@ class CreateAnexosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('anexos');
+        Schema::dropIfExists('departamentos');
     }
 }

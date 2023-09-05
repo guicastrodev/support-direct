@@ -10,9 +10,9 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('*', function ($view) {
-            // Compartilhe o perfil do usuário ativo com todas as views
             if(!is_null(auth()->user())){
-                $view->with('perfil', auth()->user()->tipo);
+                $perfil = auth()->user()->perfil;
+                $view->with('perfil', $perfil);
             }
             else{
                 $view->with('perfil', null);
@@ -22,6 +22,5 @@ class ComposerServiceProvider extends ServiceProvider
 
     public function register()
     {
-        //
     }
 }

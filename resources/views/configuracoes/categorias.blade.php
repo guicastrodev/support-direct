@@ -14,8 +14,8 @@
         </tr>
         @foreach($categorias as $categoria)
         <tr class="sel">        
-            <td><a href="#" >{{ $categoria->titulo }}</a></td>
-            <td><a href="#" >{{ $categoria->departamento }}</a></td>
+            <td><a href="#" >{{ $categoria->nome }}</a></td>
+            <td><a href="#" >{{ $categoria->departamento->nome }}</a></td>
         </tr>
         @endforeach
     </table>
@@ -38,8 +38,8 @@
                         <label for="departamento">Departamento:</label>
                         <select name="departamento" id="departamento" >
                           @foreach ($departamentos as $departamento)
-                          <option value="{{ $departamento }}">
-                              {{ $departamento }}
+                          <option value="{{ $departamento->id }}">
+                              {{ $departamento->nome }}
                           </option>
                           @endforeach
                         </select>

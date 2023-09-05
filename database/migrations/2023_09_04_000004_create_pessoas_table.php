@@ -14,12 +14,11 @@ class CreatePessoasTable extends Migration
             $table->string('empresa')->nullable();
             $table->string('endereco')->nullable();
             $table->string('telefone')->nullable();
-            $table->string('cpfcnpj');
-            $table->enum('tipo', ['cliente', 'tecnico', 'gestor']);
+            $table->string('cpfcnpj')->nullable();
             $table->string('especialidade')->nullable();
             $table->string('disponibilidade')->nullable();
-            $table->string('departamento')->nullable();
-            $table->unsignedBigInteger('usuarioID')->nullable();
+            $table->unsignedBigInteger('departamentoID')->nullable();  
+            $table->foreign('departamentoID')->references('id')->on('departamentos');                  
             $table->timestamps();
         });
     }

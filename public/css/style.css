@@ -71,7 +71,6 @@ th {
     background-color: #444;
     color: white;
     border: 1px solid #333;
-    font-weight: bold;
     transition: background-color 0.3s, color 0.3s, border 0.3s;
     /* box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.747); */
 }
@@ -92,7 +91,7 @@ th {
     text-decoration: none;
     transition: color 0.3s;
     display: block;
-    padding: 10px 2.5vw;
+    margin: 10px auto ;    
     width: 150px;
 }
 
@@ -121,7 +120,7 @@ th {
 
 .group-flex{
     flex: 1; 
-    min-width: 450px; 
+    min-width: 420px; 
     margin: 5px 10px 5px 0;   
     vertical-align: middle; 
 }
@@ -228,8 +227,8 @@ th {
 }
 
 .btn-link {
-    width: 130px;    
-    padding: 15px 20px;    
+    width: 100px;    
+    padding: 10px 15px;    
     margin: 5px;
 }
 .btn-img  {
@@ -344,7 +343,7 @@ th {
     }
     .menu a {
         width: 100%;
-        padding: 5px;
+        margin: 5px auto;            
     }
 
     .has-submenu:hover .submenu {

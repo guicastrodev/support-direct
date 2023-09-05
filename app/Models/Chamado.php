@@ -9,20 +9,47 @@ class Chamado extends Model
 {
     use HasFactory;
 
+    protected $table = 'chamados';    
+
     protected $fillable = [
         'titulo',
-        'descricao',
         'status',
         'requerenteID',
         'tecnicoID',
         'gestorID',
-        'categoria',
+        'categoriaID',
         'prioridade',
     ];
 
     protected $dates = [
-        'created_at', 'updated_at',
+        'created_at', 
+        'updated_at',
     ];
+
+    public function requerente()
+    {
+        return $this->belongsTo(User::class, 'requerenteID');
+    }
+
+    public function tecnico()
+    {
+        return $this->belongsTo(User::class, 'tecnicoID');
+    }
+
+    public function gestor()
+    {
+        return $this->belongsTo(User::class, 'gestorID');
+    } 
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class,'categoriaID');
+    }  
+    
+    public function iteracoes()
+    {
+        return $this->hasMany(Iteracao::class,'chamadoID');
+    }    
 
     public function ultimaAtualizacao()
     {
@@ -45,24 +72,4 @@ class Chamado extends Model
         }
 
     }
-
-    public function requerente()
-    {
-        return $this->belongsTo(User::class, 'requerenteID');
-    }
-
-    public function tecnico()
-    {
-        return $this->belongsTo(User::class, 'tecnicoID');
-    }
-
-    public function gestor()
-    {
-        return $this->belongsTo(User::class, 'gestorID');
-    } 
-    
-    public function iteracoes()
-    {
-        return $this->hasMany(Iteracao::class,'chamadoID');
-    }    
 }

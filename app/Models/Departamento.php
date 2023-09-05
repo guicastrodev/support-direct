@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Categoria extends Model
+class Departamento extends Model
 {
     use HasFactory;
 
-    protected $table = 'categorias';    
+    protected $table = 'departamentos';    
 
     protected $fillable = [
         'nome',
         'descricao',
-        'departamentoID',
     ];
 
     protected $dates = [
@@ -22,8 +21,8 @@ class Categoria extends Model
         'updated_at',
     ];    
 
-    public function departamento()
+    public function categoria()
     {
-        return $this->belongsTo(Departamento::class, 'departamentoID');
-    }
+        return $this->hasOne(Categoria::class,'departamentoID');
+    }     
 }

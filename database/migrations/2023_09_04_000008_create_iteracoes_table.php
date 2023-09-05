@@ -13,11 +13,10 @@ class CreateIteracoesTable extends Migration
             $table->text('descricao');
             $table->dateTime('datahora');
             $table->unsignedBigInteger('usuarioID');
+            $table->foreign('usuarioID')->references('id')->on('usuarios');            
             $table->unsignedBigInteger('chamadoID');
-            $table->timestamps();
-
-            $table->foreign('usuarioID')->references('id')->on('usuarios');
             $table->foreign('chamadoID')->references('id')->on('chamados')->onDelete('cascade');            
+            $table->timestamps();
         });
     }
 

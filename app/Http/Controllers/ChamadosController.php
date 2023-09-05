@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Chamado;
 use App\Models\User;
+use App\Models\Perfil;
 use App\Models\Iteracao;
+use App\Models\Categoria;
 use App\Models\Anexo;
 
 
-class TicketsController extends Controller
+class ChamadosController extends Controller
 {
     public function NovaIteracao($chamadoID, $usuarioID, $descricao, $files)
     {
@@ -36,59 +38,48 @@ class TicketsController extends Controller
         }
     }
 
-    public function index()
+    public function lista()
     {
         $userID = auth()->id();
-        $perfil = auth()->user()->tipo;
 
-        switch ($perfil) {
+        switch (auth()->user()->perfil->acesso) {
             case 'cliente':
-                $tickets = Chamado::where('requerenteID', $userID)->get();
+                $chamados = Chamado::where('requerenteID', $userID)->get();
                 break;
             case 'tecnico':
-                $tickets = Chamado::where('tecnicoID', $userID)->get();
+                $chamados = Chamado::where('tecnicoID', $userID)->get();
                 break;
             case 'gestor':
-                $tickets = Chamado::where('gestorID', $userID)->get();
+                $chamados = Chamado::where('gestorID', $userID)->get();
                 break;
             default:
-                // O tipo do usuário é uma informação obrigatória!
                 break;
         }
 
-        return view('tickets', compact('tickets'));
+        return view('chamados', compact('chamados'));
     }
 
-    public function show($id)
+    public function visualizar($id)
     {
-        $categorias = ['Acesso', 'Conexão', 'E-mail', 'Hardware', 'Impressão', 'Materiais', 'Rede', 'Segurança', 'Servidor', 'Sistema', 'Software'];
+        $categorias = Categoria::all();
         $prioridades = ['baixa', 'media', 'alta'];
-        $perfil = auth()->user()->tipo;
         if ($id == 'novo') {
             return view('novochamado', compact('categorias', 'prioridades'));
         } else {
-            $chamado = Chamado::findOrFail($id);
-            $tecnicos = User::where('tipo', 'tecnico')->get();
+            $chamado = Chamado::find($id);
+            $id_tecnico = Perfil::where('acesso', 'tecnico')->get();
+            $tecnicos = User::where('perfilID', $id_tecnico)->get();
             $situacoes = ['Aberto', 'Em análise', 'Resolvido', 'Cancelado', 'Aguardando Requerente', 'Aguardando Fornecedor'];
-            return view('chamado', compact('chamado', 'categorias', 'prioridades', 'tecnicos', 'situacoes', 'perfil'));
+            return view('chamado', compact('chamado', 'categorias', 'prioridades', 'tecnicos', 'situacoes'));
         }
     }
 
-    public function update(Request $request, $id)
+    public function alterar(Request $request, $id)
     {
-        $chamado = Chamado::findOrFail($id);
-
-        /*
-        $request->validate([
-            'categoria' => 'required',
-            'prioridade' => 'required',
-            'responsavel' => 'required',
-            'situacao' => 'required',
-        ]);
-        */
+        $chamado = Chamado::find($id);
 
         if (!is_null($request->categoria)) {
-            $chamado->categoria = $request->categoria;
+            $chamado->categoriaID = $request->categoria;
         }
 
         if (!is_null($request->prioridade)) {
@@ -109,28 +100,30 @@ class TicketsController extends Controller
             $this->NovaIteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));        
         }
 
-        return redirect()->route('chamado.show', $chamado->id)->with('success', 'Chamado atualizado com sucesso.');
+        return redirect()->route('chamado.visualizar', $chamado->id)->with('success', 'Chamado atualizado com sucesso.');
     }
 
-    public function new(Request $request)
+    public function novo(Request $request)
     {
         $chamado = new Chamado;
         $chamado->requerenteID = auth()->id();
         $chamado->titulo = $request->input('titulo');
-        $chamado->categoria = $request->input('categoria');
+        $chamado->categoriaID = $request->input('categoria');
         $chamado->prioridade = $request->input('prioridade');
         $chamado->status = 'Aberto';
 
-        $gestor = User::where('tipo', 'gestor')->first();
+        $perfil_gestor = Perfil::where('acesso', 'gestor')->first();
+        $gestor = User::where('perfilID', $perfil_gestor->id)->first();        
 
         $chamado->gestorID = $gestor->id;
+
         $chamado->save();
 
-        
+       
         if (!is_null($request->descricao)) {
-            $this->NovaIteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));        
+            $this->NovaIteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));
         }
 
-        return redirect()->route('tickets');
+        return redirect()->route('chamados.lista');
     }
 }

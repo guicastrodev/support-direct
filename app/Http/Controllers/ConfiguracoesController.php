@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Perfil;
 use App\Models\Categoria;
+use App\Models\Departamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,16 +14,14 @@ class ConfiguracoesController extends Controller
 {
     public function usuarios(){
         $usuarios = User::all();
-        $perfis=['gerente','tecnico','cliente'];
+        $perfis= Perfil::all()->whereNotIn('acesso',['adm']);
         return view('configuracoes.usuarios',compact('usuarios','perfis'));
     }
 
     public function categorias(){
         $categorias = Categoria::all();
+        $departamentos = Departamento::all();
 
-        $departamentos = ['TI','RH','Financeiro'];
-
-        $categorias = Categoria::all();
         return view('configuracoes.categorias',compact('categorias','departamentos'));
     }
 
@@ -35,7 +35,7 @@ class ConfiguracoesController extends Controller
         $usuario->save();
 
         $usuarios = User::all();
-        $perfis=['gerente','tecnico','cliente'];
+        $perfis= Perfil::all()->whereNotIn('acesso',['adm']);
         return view('configuracoes.usuarios',compact('usuarios','perfis'));
     }
 
@@ -47,9 +47,9 @@ class ConfiguracoesController extends Controller
         $categoria->departamento = $request->departamento;
         $categoria->save();
 
-        $departamentos = ['TI','RH','Financeiro'];
-
+        $departamentos = Departamento::all();
         $categorias = Categoria::all();
+
         return view('configuracoes.categorias',compact('categorias','departamentos'));
     }    
 

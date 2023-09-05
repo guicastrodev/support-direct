@@ -12,34 +12,34 @@
                         @csrf
 
                         <div class="row mb-3 mx-4">
-                                <div>
-                                    <label for="email" class="col-form-label">{{ __('E-mail') }}</label>
-                                </div>
+                            <div>
+                                <label for="email" class="col-form-label">{{ __('E-mail') }}</label>
+                            </div>
 
                             <div class="input-group">
-                            <input id="email" type="email" placeholder="{{ __('E-mail') }}" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" autofocus>                                
+                                <input id="email" type="email" placeholder="{{ __('E-mail') }}" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" autofocus>                                
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                                </div>
+                            </div>
                         </div>
 
                         <div class="row mb-3 mx-4">
-                                <div>
-                                    <label for="password" class="col-form-label">{{ __('Senha') }}</label>
-                                </div>
+                            <div>
+                                <label for="password" class="col-form-label">{{ __('Senha') }}</label>
+                            </div>
 
                             <div class="input-group">                                
-                            <input id="password" type="password" placeholder="{{ __('Senha') }}" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">                            
+                                <input id="password" type="password" placeholder="{{ __('Senha') }}" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">                            
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                </div>
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
                         </div>
 
                         <div class="row mb-3">
@@ -56,7 +56,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                            <button class="btn-link" type="submit">
+                                <button class="btn-link" type="submit">
                                     {{ __('Entrar') }}
                                 </button>
 

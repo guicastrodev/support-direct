@@ -17,6 +17,15 @@ class CreateChamadosTable extends Migration
             $table->id();
             $table->string('titulo');
             $table->enum('status', ['Aberto','Em análise', 'Resolvido', 'Cancelado', 'Aguardando Requerente', 'Aguardando Fornecedor'])->default('Aberto');
+            $table->unsignedBigInteger('requerenteID');
+            $table->foreign('requerenteID')->references('id')->on('usuarios');
+            $table->unsignedBigInteger('tecnicoID')->nullable();
+            $table->foreign('tecnicoID')->references('id')->on('usuarios');
+            $table->unsignedBigInteger('gestorID');
+            $table->foreign('gestorID')->references('id')->on('usuarios');
+            $table->unsignedBigInteger('categoriaID')->nullable();  
+            $table->foreign('categoriaID')->references('id')->on('categorias');    
+            $table->enum('prioridade', ['baixa', 'media', 'alta']);            
             $table->timestamps();
         });
     }

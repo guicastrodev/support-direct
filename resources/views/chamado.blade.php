@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="painel">
-    <form action="{{ route('chamado.update', $chamado->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('chamado.alterar', $chamado->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <h4><b>Ticket #{{ $chamado->id }}</b></h4>
@@ -15,7 +15,7 @@
             </div>
             <div class="group-fix">
                 <label for="responsavel">Responsável</label>
-                @if($perfil=='cliente')
+                @if($perfil->acesso=='cliente')
                     @if(isset($chamado->tecnico))
                     <input type="text" disabled name="responsavel" id="responsavel" value="{{$chamado->tecnico->name}}">
                     @else
@@ -33,7 +33,7 @@
             </div>
             <div class="group-fix">
                 <label for="situacao">Situação</label>
-                @if($perfil!='gestor')
+                @if($perfil->acesso!='gestor')
                 <select name="situacao" id="situacao">
                     @foreach ($situacoes as $situacao)
                     <option value="{{ $situacao }}" {{ $chamado->situacao == $situacao ? 'selected' : '' }}>
@@ -47,21 +47,21 @@
             </div>
             <div class="group-fix">            
                 <label for="categoria">Categoria</label>
-                @if($perfil!='gestor')                
+                @if($perfil->acesso!='gestor')                
                 <select name="categoria" id="categoria">
                     @foreach ($categorias as $categoria)
-                    <option value="{{ $categoria }}" {{ $chamado->categoria == $categoria ? 'selected' : '' }}>
-                        {{ $categoria }}
+                    <option value="{{ $categoria->id }}" {{ $chamado->categoriaID == $categoria->id ? 'selected' : '' }}>
+                        {{ $categoria->nome }}
                     </option>
                     @endforeach
                 </select>
                 @else
-                <input name="categoria" id="categoria" value="{{ $chamado->categoria }}" disabled>
+                <input name="categoria" id="categoria" value="{{ $chamado->categoria->nome }}" disabled>
                 @endif
             </div>
             <div class="group-fix">               
                 <label for="prioridade">Prioridade</label>
-                @if($perfil=='gestor')
+                @if($perfil->acesso=='gestor')
                 <select name="prioridade" id="prioridade">
                     @foreach ($prioridades as $prioridade)
                     <option value="{{ $chamado->$prioridade }}" {{ $chamado->prioridade == $prioridade ? 'selected' : '' }}>

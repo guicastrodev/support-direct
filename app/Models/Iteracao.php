@@ -18,6 +18,11 @@ class Iteracao extends Model
         'chamadoID',
     ];
 
+    protected $dates = [
+        'created_at', 
+        'updated_at',
+    ];       
+
     public function usuario()
     {
         return $this->belongsTo(User::class, 'usuarioID');
