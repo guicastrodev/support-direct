@@ -70,9 +70,19 @@
                         </nav>
                     @endif
                 @endauth
-
+                @if(Session::get('mensagem'))
+                    <div class="alert alert-success msg-box">
+                        <p>{{Session::get('mensagem')}}</p>
+                    </div>
+                    {{session()->forget(['mensagem'])}}
+                @endif 
+                @if(Session::get('erro'))                
+                    <div class="alert alert-danger msg-box">
+                        <p>{{Session::get('erro')}}</p>
+                    </div>
+                    {{session()->forget(['erro'])}}                    
+                @endif
                 @yield('content')
-                
             </main>
         </div>
     </body>

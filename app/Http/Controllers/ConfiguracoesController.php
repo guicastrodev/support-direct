@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Pessoa;
 use App\Models\Perfil;
 use App\Models\Categoria;
 use App\Models\Departamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class ConfiguracoesController extends Controller
 {
@@ -26,29 +28,48 @@ class ConfiguracoesController extends Controller
     }
 
     public function novousuario(Request $request){
+        $request->session()->forget(['mensagem', 'erro']);
 
-        $usuario = new User;
-        $usuario->name = $request->name;
-        $usuario->email = $request->email;
-        $usuario->password = Hash::make($request->password);        
-        $usuario->tipo = $request->tipo;
-        $usuario->save();
+        if(count(User::where('email',$request->email)->get())>0){
+            Session::flash('erro', 'Usuário não incluído! Já existe um cadastro com o email informado!');
+        }else{
+            // TO DO: Incluir lista de seleção de pessoa, e cadastro para inclusão de pessoa
+
+            // Implementação provisória, apenas para atender requisito de dependencia
+            $pessoa = new Pessoa;
+            $pessoa->nome = $request->name;
+            $pessoa->save();        
+            //
+
+            $usuario = new User;
+            $usuario->name = $request->name;
+            $usuario->email = $request->email;
+            $usuario->password = Hash::make($request->password);        
+            $usuario->perfilID = $request->perfil;
+            $usuario->pessoaID = $pessoa->id;        
+            $usuario->save();
+
+            Session::flash('mensagem', 'Usuário incluído com sucesso!' );
+        }
 
         $usuarios = User::all();
-        $perfis= Perfil::all()->whereNotIn('acesso',['adm']);
+        $perfis = Perfil::all()->whereNotIn('acesso',['adm']);
+
         return view('configuracoes.usuarios',compact('usuarios','perfis'));
     }
 
     public function novacategoria(Request $request){
 
         $categoria = new Categoria;
-        $categoria->titulo = $request->titulo;
+        $categoria->nome = $request->nome;
         $categoria->descricao = $request->descricao;
-        $categoria->departamento = $request->departamento;
+        $categoria->departamentoID = $request->departamento;
         $categoria->save();
 
         $departamentos = Departamento::all();
         $categorias = Categoria::all();
+
+        Session::flash('mensagem', 'Categoria incluída com sucesso!' );
 
         return view('configuracoes.categorias',compact('categorias','departamentos'));
     }    

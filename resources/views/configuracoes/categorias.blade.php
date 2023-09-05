@@ -9,7 +9,7 @@
     </div>
     <table>
         <tr>
-            <th style="width:50vw; min-width: 200px;">Título</th>
+            <th style="width:50vw; min-width: 200px;">Nome</th>
             <th style="width:50vw; min-width: 200px;">Departamento</th>
         </tr>
         @foreach($categorias as $categoria)
@@ -31,8 +31,8 @@
                 </div>
                 <div class="container-flex"> 
                     <div class="group-flex-m">           
-                        <label for="titulo">Título:</label>
-                        <input type="text" name="titulo" id="titulo" >
+                        <label for="nome">Nome:</label>
+                        <input type="text" name="nome" id="nome" >
                     </div>
                     <div class="group-fix mb-4">
                         <label for="departamento">Departamento:</label>

@@ -100,7 +100,8 @@ class ChamadosController extends Controller
             $this->NovaIteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));        
         }
 
-        return redirect()->route('chamado.visualizar', $chamado->id)->with('success', 'Chamado atualizado com sucesso.');
+
+        return redirect()->route('chamado.visualizar', $chamado->id)->with('mensagem', 'Chamado atualizado com sucesso!');
     }
 
     public function novo(Request $request)

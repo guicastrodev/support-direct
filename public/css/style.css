@@ -332,6 +332,22 @@ th {
     cursor: pointer;
   }
 
+  @keyframes hide {
+    from { opacity: 1 }
+    to   { opacity: 0 }
+  }
+
+  .msg-box {
+    animation: hide 5s linear forwards;
+    position: fixed;    
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+    top: 50%;
+  }
+
 @media (max-width: 615px) {
     .menu ul {
         display: inline-block;
