@@ -67,8 +67,8 @@ class ChamadosController extends Controller
             return view('novochamado', compact('categorias', 'prioridades'));
         } else {
             $chamado = Chamado::find($id);
-            $id_tecnico = Perfil::where('acesso', 'tecnico')->get();
-            $tecnicos = User::where('perfilID', $id_tecnico)->get();
+            $perfil_tecnico = Perfil::where('acesso', 'tecnico')->first();
+            $tecnicos = User::where('perfilID', $perfil_tecnico->id)->get();  
             $situacoes = ['Aberto', 'Em análise', 'Resolvido', 'Cancelado', 'Aguardando Requerente', 'Aguardando Fornecedor'];
             return view('chamado', compact('chamado', 'categorias', 'prioridades', 'tecnicos', 'situacoes'));
         }
