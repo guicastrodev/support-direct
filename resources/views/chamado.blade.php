@@ -36,7 +36,7 @@
                 @if($perfil->acesso!='gestor')
                 <select name="situacao" id="situacao">
                     @foreach ($situacoes as $situacao)
-                    <option value="{{ $situacao }}" {{ $chamado->situacao == $situacao ? 'selected' : '' }}>
+                    <option value="{{ $situacao }}" {{ $chamado->status == $situacao ? 'selected' : '' }}>
                         {{ ucfirst($situacao) }}
                     </option>
                     @endforeach
