@@ -42,7 +42,7 @@
                     @endforeach
                 </select>                                     
                 @else
-                    <input type="text" disabled name="situacao" id="situacao">
+                    <input name="situacao" id="situacao" value="{{ $chamado->status }}" disabled>
                 @endif
             </div>
             <div class="group-fix">            
