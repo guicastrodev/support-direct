@@ -86,7 +86,7 @@
                     </div>          
                     <div class="right-col">
                         @foreach ($iteracao->anexos as $anexo)
-                        <a href= 'https://www.castrodev.com.br{{$anexo->localizacao}}{{$anexo->nome}}' target="_blank">{{$anexo->nome}}</a>
+                        <a href= 'https://www.castrodev.com.br{{$anexo->localizacao}}{{$anexo->hashftp}}' target="_blank">{{$anexo->nome}}</a>
                         @endforeach
                     </div>
                 </div>
@@ -96,14 +96,13 @@
 
         <!-- ============== BASE ================ -->
         <div class="container-flex"> 
-            @if($perfil!='gestor')
-            <a class="btn-img"  title="Novo Comentário" id="ad-comentario" onclick="addComment()"><img src="{{ asset('img/ico-add-com.png') }}"></a>            
+            @if($perfil->acesso!='gestor')
+            <a class="btn-img" title="Novo Comentário" id="ad-comentario" onclick="addComment()"><img src="{{ asset('img/ico-add-com.png') }}"></a>            
             @endif
-            @if($perfil=='tecnico')
-            <a class="btn-img" title="Comentário Padrão" onclick="alertaPrototipo()"><img src="{{ asset('img/ico-com-padrao.png') }}"></a>
-                
+            @if($perfil->acesso=='tecnico')
+            <a class="btn-img" title="Comentário Padrão" id="ad-com-padrao" onclick="openModal()"><img src="{{ asset('img/ico-com-padrao.png') }}"></a>            
             @endif
-            @if($perfil!='gestor')
+            @if($perfil->acesso!='gestor')
             <label class="btn-img btn-disabled" id="ad-anexo" ><img src="{{ asset('img/ico-attach.png') }}"></label>
             <input onchange="listFiles()" type="file" title="Adicionar Anexo" name="files[]" id="files[]" multiple>
             @endif
@@ -111,5 +110,20 @@
             <button class="btn-img" type="submit" title="Gravar Alterações"><img src="{{ asset('img/ico-done.png') }}"></button>            
         </div>         
     </form>  
+</div>
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <table>
+            <tr>
+                <th style="width:50vw; min-width: 200px;">Comentários Padrões</th>
+            </tr>
+            @foreach($comentariospadroes as $comentariopadrao)
+            <tr class="sel">        
+                <td><a onclick="addMsgPadrao('{{$comentariopadrao->mensagem}}')">{{ $comentariopadrao->mensagem }}</a></td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
 </div>
 @endsection

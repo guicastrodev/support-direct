@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Models\Chamado;
 use App\Models\User;
 use App\Models\Perfil;
 use App\Models\Iteracao;
 use App\Models\Categoria;
 use App\Models\Anexo;
-
+use App\Models\ComentarioPadrao;
 
 class ChamadosController extends Controller
 {
@@ -27,9 +28,13 @@ class ChamadosController extends Controller
 
         if (!is_null($files)) {
             foreach ($files as $file) {
-                Storage::disk('ftp')->put($localAnexo . $file->getClientOriginalName(), file_get_contents($file));
+
+                $nomeFTP = Str::uuid();;
+
+                Storage::disk('ftp')->put($localAnexo . $nomeFTP, file_get_contents($file));
 
                 $anexo = new Anexo;
+                $anexo->hashftp = $nomeFTP;
                 $anexo->nome = $file->getClientOriginalName();
                 $anexo->localizacao = $localAnexo;
                 $anexo->iteracaoID = $iteracao->id;
@@ -47,7 +52,7 @@ class ChamadosController extends Controller
                 $chamados = Chamado::where('requerenteID', $userID)->get();
                 break;
             case 'tecnico':
-                $chamados = Chamado::where('tecnicoID', $userID)->get();
+                $chamados = Chamado::where('tecnicoID', $userID)->orWhere('requerenteID', $userID)->get();
                 break;
             case 'gestor':
                 $chamados = Chamado::where('gestorID', $userID)->get();
@@ -63,6 +68,8 @@ class ChamadosController extends Controller
     {
         $categorias = Categoria::all();
         $prioridades = ['baixa', 'media', 'alta'];
+        $comentariospadroes = ComentarioPadrao::where('usuarioID',auth()->id())->get();
+
         if ($id == 'novo') {
             return view('novochamado', compact('categorias', 'prioridades'));
         } else {
@@ -70,7 +77,7 @@ class ChamadosController extends Controller
             $perfil_tecnico = Perfil::where('acesso', 'tecnico')->first();
             $tecnicos = User::where('perfilID', $perfil_tecnico->id)->get();  
             $situacoes = ['Aberto', 'Em análise', 'Resolvido', 'Cancelado', 'Aguardando Requerente', 'Aguardando Fornecedor'];
-            return view('chamado', compact('chamado', 'categorias', 'prioridades', 'tecnicos', 'situacoes'));
+            return view('chamado', compact('chamado', 'categorias', 'prioridades', 'tecnicos', 'situacoes','comentariospadroes'));
         }
     }
 
@@ -106,6 +113,7 @@ class ChamadosController extends Controller
 
     public function novo(Request $request)
     {
+       
         $chamado = new Chamado;
         $chamado->requerenteID = auth()->id();
         $chamado->titulo = $request->input('titulo');

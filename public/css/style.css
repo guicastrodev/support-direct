@@ -46,9 +46,13 @@ th {
     background-color: #f2f2f2;
 }
 
+.sel a{
+    display: block;
+}
+
 .sel:hover{
     background-color: #f2f2f2;
-
+    cursor: pointer;
 }
 
 .menu {
@@ -345,7 +349,7 @@ th {
     text-align: center;
     font-weight: bold;
     font-size: large;
-    top: 50%;
+    top: 10%;
   }
 
 @media (max-width: 615px) {

@@ -5,26 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Anexo extends Model
+class ComentarioPadrao extends Model
 {
     use HasFactory;
 
-    protected $table = 'anexos';    
+    protected $table = 'comentariospadroes';
 
     protected $fillable = [
-        'hashftp',
-        'nome',
-        'localizacao',
-        'iteracaoID',
+        'mensagem',
+        'usuarioID',
     ];
 
     protected $dates = [
         'created_at', 
         'updated_at',
-    ];    
-
-    public function iteracao()
+    ]; 
+    
+    public function usuario()
     {
-        return $this->belongsTo(Iteracao::class);
-    }
+        return $this->belongsTo(User::class, 'usuarioID');
+    }    
 }

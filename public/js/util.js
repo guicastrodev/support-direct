@@ -1,10 +1,11 @@
 function alertaPrototipo(){
-    alert('Essa é uma versão de protótipo! Determinadas funcionalidades só estarão disponíveis na versão final.');
+    alert('Sistema em desenvolvimento! Essa funcionalidade estará disponível em breve.');
 }  
 
-function addComment(){
+function addComment(texto){
     var listaDescricoes = document.getElementById("lista-descricoes");
     var botaoComentario = document.getElementById("ad-comentario");
+    var botaoComentarioPadrao = document.getElementById("ad-com-padrao");
     var descricao = document.createElement("textarea");
     var grupoDescricao = document.createElement("div");
     descricao.style.width = '100%'; 
@@ -17,9 +18,15 @@ function addComment(){
         this.style.height = 'auto';
         this.style.height = (this.scrollHeight) + "px";
     });    
+
+    if(texto){
+        descricao.value = texto;
+    }
+
     grupoDescricao.appendChild(descricao);
     listaDescricoes.appendChild(grupoDescricao);
     botaoComentario.classList.add('btn-disabled');
+    botaoComentarioPadrao.classList.add('btn-disabled');    
 
     var botaoAnexo = document.getElementById('ad-anexo');
     if(botaoAnexo){
@@ -63,4 +70,9 @@ function openModal(){
 function closeModal(){
     var modal = document.getElementById("modal");
     modal.style.display = "none";
+}
+
+function addMsgPadrao(msg){
+    closeModal();
+    addComment(msg);
 }

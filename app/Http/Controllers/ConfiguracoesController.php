@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Pessoa;
 use App\Models\Perfil;
 use App\Models\Categoria;
+use App\Models\ComentarioPadrao;
 use App\Models\Departamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -25,6 +26,12 @@ class ConfiguracoesController extends Controller
         $departamentos = Departamento::all();
 
         return view('configuracoes.categorias',compact('categorias','departamentos'));
+    }
+
+    public function comentariospadroes(){
+        $comentariospadroes = ComentarioPadrao::all();
+
+        return view('configuracoes.comentariospadroes',compact('comentariospadroes'));
     }
 
     public function novousuario(Request $request){
@@ -72,6 +79,18 @@ class ConfiguracoesController extends Controller
         Session::flash('mensagem', 'Categoria incluída com sucesso!' );
 
         return view('configuracoes.categorias',compact('categorias','departamentos'));
-    }    
+    } 
+    
+    public function novocomentariopadrao(Request $request){
+        $comentariospadroes = new ComentarioPadrao;
+        $comentariospadroes->mensagem = $request->comentario;
+        $comentariospadroes->usuarioID = auth()->id();
+        $comentariospadroes->save();
 
+        $comentariospadroes = ComentarioPadrao::all();        
+
+        Session::flash('mensagem', 'Comentário Padrão incluído com sucesso!' );
+
+        return view('configuracoes.comentariospadroes',compact('comentariospadroes'));        
+    }
 }

@@ -59,5 +59,10 @@ class User extends Authenticatable
     public function pessoa()
     {
         return $this->belongsTo(Pessoa::class, 'pessoaID');
-    }    
+    } 
+    
+    public function comentariospadroes()
+    {
+        return $this->hasMany(MsgPadrao::class,'usuarioID');
+    } 
 }

@@ -54,7 +54,7 @@
                                 @if($perfil->acesso=='gestor')
                                     <li><a onclick="alertaPrototipo()" href="#">Relatórios</a></li>
                                 @endif
-                                <li class="has-submenu {{ Request::is('configuracoes/usuarios') || Request::is('configuracoes/categorias') ? 'active' : '' }}">
+                                <li class="has-submenu {{ Request::is('configuracoes/usuarios') || Request::is('configuracoes/categorias') || Request::is('configuracoes/msgpadroes') ? 'active' : '' }}">
                                     <a href="#">Configurações</a>
                                     <ul class="submenu">
                                         @if($perfil->acesso=='gestor')
@@ -62,7 +62,7 @@
                                             <li><a href="{{route('configuracoes.categorias')}}">Categorias</a></li>
                                         @endif
                                         @if($perfil->acesso=='tecnico')
-                                            <li><a href="{{route('configuracoes.usuarios')}}">Comentários <br> Padrões</a></li>                                                
+                                            <li><a href="{{route('configuracoes.comentariospadroes')}}">Comentários <br> Padrões</a></li>                                                
                                         @endif
                                     </ul>
                                 </li>                                                                                
