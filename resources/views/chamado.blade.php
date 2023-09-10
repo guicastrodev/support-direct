@@ -80,15 +80,13 @@
             @foreach ($chamado->iteracoes as $iteracao)
             <div>
                 <textarea disabled name="" id="" >{{ $iteracao->descricao }}</textarea>
-                <div class="two-columns">  
-                    <div class="left-col">
-                        <p>{{ date('d/m/Y H:i', strtotime($iteracao->datahora )) }} : {{ $iteracao->usuario->name }}</p>            
-                    </div>          
-                    <div class="right-col">
+                <div>
+                        <p>{{ date('d/m/Y H:i', strtotime($iteracao->datahora )) }} : {{ $iteracao->usuario->name }} - Anexos [
                         @foreach ($iteracao->anexos as $anexo)
-                        <a href= 'https://www.castrodev.com.br{{$anexo->localizacao}}{{$anexo->hashftp}}' target="_blank">{{$anexo->nome}}</a>
+                        <a href= '{{$anexo->localizacao}}{{$anexo->hashftp}}' target="_blank">{{$anexo->nome}}</a>
+                        <a>; </a>
                         @endforeach
-                    </div>
+                        ]</p>
                 </div>
             </div>
             @endforeach

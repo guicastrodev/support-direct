@@ -10,7 +10,8 @@ function addComment(texto){
     var grupoDescricao = document.createElement("div");
     descricao.style.width = '100%'; 
     descricao.id = 'descricao';   
-    descricao.name = 'descricao';   
+    descricao.name = 'descricao';  
+    descricao.required = true; 
     grupoDescricao.id = 'grupo-descricao';   
     grupoDescricao.name = 'grupo-descricao';   
 
@@ -26,7 +27,10 @@ function addComment(texto){
     grupoDescricao.appendChild(descricao);
     listaDescricoes.appendChild(grupoDescricao);
     botaoComentario.classList.add('btn-disabled');
-    botaoComentarioPadrao.classList.add('btn-disabled');    
+
+    if(botaoComentarioPadrao){
+        botaoComentarioPadrao.classList.add('btn-disabled');    
+    }
 
     var botaoAnexo = document.getElementById('ad-anexo');
     if(botaoAnexo){
@@ -48,10 +52,12 @@ function listFiles(){
     for (let i = 0; i < files.length; i++) {
         const fileName = files[i].name;
         const listItem = document.createElement('a');
+        const separador = document.createElement('a');        
         listItem.textContent = fileName;
+        separador.textContent = '; ';
         listItem.href = "https://www.castrodev.com.br/anexos/" + fileName;
         grupoDescricao.appendChild(listItem);
-        grupoDescricao.appendChild(document.createElement('br'));
+        grupoDescricao.appendChild(separador);
     }
 }
 

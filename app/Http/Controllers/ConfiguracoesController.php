@@ -31,7 +31,7 @@ class ConfiguracoesController extends Controller
     public function comentariospadroes(){
         $comentariospadroes = ComentarioPadrao::all();
 
-        return view('configuracoes.comentariospadroes',compact('comentariospadroes'));
+        return view('configuracoes.comentarios-padroes',compact('comentariospadroes'));
     }
 
     public function novousuario(Request $request){
@@ -91,6 +91,6 @@ class ConfiguracoesController extends Controller
 
         Session::flash('mensagem', 'Comentário Padrão incluído com sucesso!' );
 
-        return view('configuracoes.comentariospadroes',compact('comentariospadroes'));        
+        return view('configuracoes.comentarios-padroes',compact('comentariospadroes'));        
     }
 }

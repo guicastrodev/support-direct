@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Chamado;
 use App\Models\User;
 use App\Models\Perfil;
@@ -12,9 +13,15 @@ use App\Models\Iteracao;
 use App\Models\Categoria;
 use App\Models\Anexo;
 use App\Models\ComentarioPadrao;
+use App\Mail\ChamadoAtualizado;
 
 class ChamadosController extends Controller
 {
+    public function ChamadoAtualizado($destinatario,$chamado)    
+    {
+        Mail::to($destinatario)->send(new ChamadoAtualizado($chamado));
+    }
+
     public function NovaIteracao($chamadoID, $usuarioID, $descricao, $files)
     {
         $iteracao = new Iteracao;
@@ -36,7 +43,7 @@ class ChamadosController extends Controller
                 $anexo = new Anexo;
                 $anexo->hashftp = $nomeFTP;
                 $anexo->nome = $file->getClientOriginalName();
-                $anexo->localizacao = $localAnexo;
+                $anexo->localizacao = 'https://www.castrodev.com.br'.$localAnexo;
                 $anexo->iteracaoID = $iteracao->id;
                 $anexo->save();
             }
@@ -71,7 +78,7 @@ class ChamadosController extends Controller
         $comentariospadroes = ComentarioPadrao::where('usuarioID',auth()->id())->get();
 
         if ($id == 'novo') {
-            return view('novochamado', compact('categorias', 'prioridades'));
+            return view('novo-chamado', compact('categorias', 'prioridades'));
         } else {
             $chamado = Chamado::find($id);
             $perfil_tecnico = Perfil::where('acesso', 'tecnico')->first();
@@ -107,6 +114,8 @@ class ChamadosController extends Controller
             $this->NovaIteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));        
         }
 
+        //$this->ChamadoAtualizado('tech@castrodev.com.br', $chamado);
+        $this->ChamadoAtualizado('gcsrj76@gmail.com', $chamado);        
 
         return redirect()->route('chamado.visualizar', $chamado->id)->with('mensagem', 'Chamado atualizado com sucesso!');
     }

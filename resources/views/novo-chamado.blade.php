@@ -8,7 +8,7 @@
             <div class="container-flex">
                 <div class="group-flex">
                         <label for="titulo">Título</label>
-                        <input name="titulo" id="titulo">
+                        <input name="titulo" id="titulo" required>
                     </div>
                     <div class="group-fix">            
                         <label for="categoria">Categoria</label>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="group-flex" id="grupo-descricao">
                     <label for="descricao">Descrição</label>
-                    <textarea class='autosize' name="descricao" id="descricao" ></textarea>
+                    <textarea class='autosize' name="descricao" id="descricao" required></textarea>
                 </div>
                 <div class="container-flex">
                     <label class="btn-img" for="files[]"><img src="{{ asset('img/ico-attach.png') }}"></label>
