@@ -27,7 +27,7 @@
                 <div class="container-flex"> 
                     <div class="group-flex-m">           
                         <label for="comentario">Comentário Padrão:</label>
-                        <input type="text" name="comentario" id="comentario" >
+                        <input type="text" name="comentario" id="comentario" required>
                     </div>
                 </div>    
                 <div class="container-flex"> 

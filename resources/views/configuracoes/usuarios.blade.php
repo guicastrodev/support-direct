@@ -31,14 +31,14 @@
                     <div class="container-flex"> 
                         <div class="group-flex-m">           
                             <label for="name">Nome:</label>
-                            <input type="text" name="name" id="name" >
+                            <input type="text" name="name" id="name" required>
                         </div>
                     </div>    
                         
                     <div class="container-flex">                     
                         <div class="group-flex-m">
                             <label for="email">E-mail:</label>
-                            <input type="text" name="email" id="email" >
+                            <input type="text" name="email" id="email" required>
                         </div>
                     </div>
                     <div class="container-flex"> 
@@ -54,7 +54,7 @@
                         </div>
                         <div class="group-flex-m mb-4">
                             <label for="password">Senha:</label>
-                            <input type="password" name="password" id="password" >
+                            <input type="password" name="password" id="password" required>
                         </div>
                     </div>
                         <div class="container-flex"> 

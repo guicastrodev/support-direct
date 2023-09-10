@@ -32,7 +32,7 @@
                 <div class="container-flex"> 
                     <div class="group-flex-m">           
                         <label for="nome">Nome:</label>
-                        <input type="text" name="nome" id="nome" >
+                        <input type="text" name="nome" id="nome" required>
                     </div>
                     <div class="group-fix mb-4">
                         <label for="departamento">Departamento:</label>
@@ -48,7 +48,7 @@
                 <div class="container-flex">                     
                     <div class="group-flex-m">
                         <label for="descricao">Descrição:</label>
-                        <input type="text" name="descricao" id="descricao" >
+                        <input type="text" name="descricao" id="descricao" required>
                     </div>
                 </div>
                 <div class="container-flex"> 
