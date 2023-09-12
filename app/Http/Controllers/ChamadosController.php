@@ -14,6 +14,7 @@ use App\Models\Categoria;
 use App\Models\Anexo;
 use App\Models\ComentarioPadrao;
 use App\Mail\ChamadoAtualizado;
+use App\Mail\ChamadosExportacao;
 
 class ChamadosController extends Controller
 {
@@ -37,7 +38,7 @@ class ChamadosController extends Controller
 
         $localAnexo = '/anexos/';
 
-        if (!is_null($files)) {
+        if ($files) {
             foreach ($files as $file) {
 
                 $nomeFTP = Str::uuid();;
@@ -193,4 +194,15 @@ class ChamadosController extends Controller
 
         return redirect()->route('chamados.lista');
     }
+
+    public function exportacao(Request $request)        
+    {
+        if($request->selecionados){
+            $chamados = Chamado::find($request->selecionados);
+            $destinatario = User::find(auth()->id())->email;
+            Mail::to($destinatario)->send(new ChamadosExportacao($chamados));
+        };
+        return redirect()->route('chamados.lista')->with('mensagem', 'Dados selecionados exportados com sucesso!');
+    }    
+
 }

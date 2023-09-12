@@ -17,6 +17,7 @@ Route::get('/', function () {return redirect('login');});
 
 Route::middleware('auth')->get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::middleware('auth')->get('/chamados', [App\Http\Controllers\ChamadosController::class, 'lista'])->name('chamados.lista');
+Route::middleware('auth')->post('/chamados/exportacao', [App\Http\Controllers\ChamadosController::class, 'exportacao'])->name('chamados.exportar');
 Route::middleware('auth')->get('/chamado/{id}',[App\Http\Controllers\ChamadosController::class, 'visualizar'])->name('chamado.visualizar');
 Route::middleware('auth')->put('/chamado/{id}', [App\Http\Controllers\ChamadosController::class, 'alterar'])->name('chamado.alterar');
 Route::middleware('auth')->post('/chamado', [App\Http\Controllers\ChamadosController::class, 'novo'])->name('chamado.novo');
