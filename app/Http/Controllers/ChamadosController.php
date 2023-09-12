@@ -17,12 +17,16 @@ use App\Mail\ChamadoAtualizado;
 
 class ChamadosController extends Controller
 {
-    public function ChamadoAtualizado($destinatario,$chamado)    
+    private function ChamadoAtualizado($destinatarios,$chamado, $novo = false)    
     {
-        Mail::to($destinatario)->send(new ChamadoAtualizado($chamado));
+        foreach($destinatarios as $destinatario){
+            if($destinatario){
+                Mail::to($destinatario)->send(new ChamadoAtualizado($chamado, $novo));
+            }
+        }
     }
 
-    public function NovaIteracao($chamadoID, $usuarioID, $descricao, $files)
+    private function NovaIteracao($chamadoID, $usuarioID, $descricao, $files)
     {
         $iteracao = new Iteracao;
         $iteracao->descricao = $descricao;
@@ -49,6 +53,24 @@ class ChamadosController extends Controller
             }
         }
     }
+
+    private function atribuicaoGestor($departamentoID){
+        $perfil_gestor = Perfil::where('acesso', 'gestor')->first();
+        $gestores = User::where('perfilID', $perfil_gestor->id)->get();
+        $menosAtribuicoes = 10000;
+        $gestorID = null;
+    
+       
+        foreach($gestores as $gestor){
+            if(($gestor->pessoa->disponibilidade) AND ($gestor->pessoa->departamentoID == $departamentoID)){
+                if(COUNT($gestor->chamadosGestor->whereNotIn('status',['Resolvido', 'Cancelado'])) < $menosAtribuicoes){
+                    $menosAtribuicoes = COUNT($gestor->chamadosGestor->whereNotIn('status',['Resolvido', 'Cancelado']));
+                    $gestorID = $gestor->id;              
+                }
+            }
+        }
+        return $gestorID;
+    }    
 
     public function lista()
     {
@@ -92,30 +114,43 @@ class ChamadosController extends Controller
     {
         $chamado = Chamado::find($id);
 
-        if (!is_null($request->categoria)) {
+        if ($request->categoria) {
             $chamado->categoriaID = $request->categoria;
         }
 
-        if (!is_null($request->prioridade)) {
+        if ($request->prioridade) {
             $chamado->prioridade = $request->prioridade;
         }
 
-        if (!is_null($request->situacao)) {
+        if ($request->situacao) {
             $chamado->status = $request->situacao;
         }
 
-        if (!is_null($request->responsavel)) {
+        if ($request->responsavel) {
             $chamado->tecnicoID = $request->responsavel;
         }
 
         $chamado->save();
 
-        if (!is_null($request->descricao)) {
+        if ($request->descricao) {
             $this->NovaIteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));        
         }
 
-        //$this->ChamadoAtualizado('tech@castrodev.com.br', $chamado);
-        $this->ChamadoAtualizado('gcsrj76@gmail.com', $chamado);        
+        $destinatarios = [];
+
+        if ($chamado->requerente) {
+            $destinatarios[] = $chamado->requerente->email;
+        }
+        
+        if ($chamado->tecnico) {
+            $destinatarios[] = $chamado->tecnico->email;
+        }
+        
+        if ($chamado->gestor) {
+            $destinatarios[] = $chamado->gestor->email;
+        }      
+
+        $this->ChamadoAtualizado($destinatarios, $chamado);        
 
         return redirect()->route('chamado.visualizar', $chamado->id)->with('mensagem', 'Chamado atualizado com sucesso!');
     }
@@ -130,17 +165,31 @@ class ChamadosController extends Controller
         $chamado->prioridade = $request->input('prioridade');
         $chamado->status = 'Aberto';
 
-        $perfil_gestor = Perfil::where('acesso', 'gestor')->first();
-        $gestor = User::where('perfilID', $perfil_gestor->id)->first();        
-
-        $chamado->gestorID = $gestor->id;
+        $departamentoID = Categoria::find($request->input('categoria'))->departamentoID;       
+        $chamado->gestorID = $this->atribuicaoGestor($departamentoID);
 
         $chamado->save();
 
        
-        if (!is_null($request->descricao)) {
+        if ($request->descricao) {
             $this->NovaIteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));
         }
+
+        $destinatarios = [];
+
+        if ($chamado->requerente) {
+            $destinatarios[] = $chamado->requerente->email;
+        }
+        
+        if ($chamado->tecnico) {
+            $destinatarios[] = $chamado->tecnico->email;
+        }
+        
+        if ($chamado->gestor) {
+            $destinatarios[] = $chamado->gestor->email;
+        }
+
+        $this->ChamadoAtualizado($destinatarios, $chamado, true);  
 
         return redirect()->route('chamados.lista');
     }

@@ -18,7 +18,46 @@ class ConfiguracoesController extends Controller
     public function usuarios(){
         $usuarios = User::all();
         $perfis= Perfil::all()->whereNotIn('acesso',['adm']);
-        return view('configuracoes.usuarios',compact('usuarios','perfis'));
+        $departamentos = Departamento::all();        
+        return view('configuracoes.usuarios',compact('usuarios','perfis','departamentos'));
+    }
+
+    public function usuario($id){
+        $usuario = User::find($id);
+        $perfis= Perfil::all()->whereNotIn('acesso',['adm']);
+        $departamentos = Departamento::all();        
+        return view('configuracoes.usuario',compact('usuario','perfis','departamentos'));
+    }
+
+    public function alterarusuario(Request $request, $id){
+        $usuario = User::find($id);
+
+
+        $request->session()->forget(['mensagem', 'erro']);
+        if(count(User::where('email',$request->email)->whereNotIn('id',[$usuario->id])->get())>0){
+            Session::flash('erro', 'Dados do usuário não alterados! Já existe um cadastro com o email informado!');
+        }else{
+            $usuario->email = $request->email;
+            $usuario->password = Hash::make($request->senha);
+            $usuario->perfilID = $request->perfil;
+
+            $usuario->save();
+
+            $pessoa = Pessoa::find($usuario->pessoaID);
+            $pessoa->departamentoID = $request->departamento;
+            if($request->ativo){        
+                $pessoa->disponibilidade = true;
+            }
+            else{
+                $pessoa->disponibilidade = false;
+            }
+
+            $pessoa->save(); 
+
+            Session::flash('mensagem', 'Dados do usuário alterados com sucesso!' );
+        }
+
+        return redirect()->route('configuracoes.usuarios');
     }
 
     public function categorias(){
@@ -44,14 +83,17 @@ class ConfiguracoesController extends Controller
 
             // Implementação provisória, apenas para atender requisito de dependencia
             $pessoa = new Pessoa;
-            $pessoa->nome = $request->name;
+            $pessoa->nome = $request->nome;
+            if($request->departamento){
+                $pessoa->departamentoID = $request->departamento;            
+            }
             $pessoa->save();        
             //
 
             $usuario = new User;
-            $usuario->name = $request->name;
+            $usuario->name = $request->nome;
             $usuario->email = $request->email;
-            $usuario->password = Hash::make($request->password);        
+            $usuario->password = Hash::make($request->senha);        
             $usuario->perfilID = $request->perfil;
             $usuario->pessoaID = $pessoa->id;        
             $usuario->save();
@@ -61,8 +103,9 @@ class ConfiguracoesController extends Controller
 
         $usuarios = User::all();
         $perfis = Perfil::all()->whereNotIn('acesso',['adm']);
+        $departamentos = Departamento::all();        
 
-        return view('configuracoes.usuarios',compact('usuarios','perfis'));
+        return view('configuracoes.usuarios',compact('usuarios','perfis','departamentos'));
     }
 
     public function novacategoria(Request $request){

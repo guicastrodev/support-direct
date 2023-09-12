@@ -24,6 +24,8 @@ Route::middleware('auth')->get('/configuracoes/usuarios', [App\Http\Controllers\
 Route::middleware('auth')->get('/configuracoes/categorias', [App\Http\Controllers\ConfiguracoesController::class, 'categorias'])->name('configuracoes.categorias');
 Route::middleware('auth')->get('/configuracoes/comentariospadroes', [App\Http\Controllers\ConfiguracoesController::class, 'comentariospadroes'])->name('configuracoes.comentariospadroes');
 Route::middleware('auth')->post('/configuracoes/usuarios', [App\Http\Controllers\ConfiguracoesController::class, 'novousuario'])->name('novo.usuario');
+Route::middleware('auth')->get('/configuracoes/usuarios/{id}', [App\Http\Controllers\ConfiguracoesController::class, 'usuario'])->name('configuracoes.usuario');
+Route::middleware('auth')->post('/configuracoes/usuarios/{id}', [App\Http\Controllers\ConfiguracoesController::class, 'alterarusuario'])->name('configuracoes.usuario-alterar');
 Route::middleware('auth')->post('/configuracoes/categorias', [App\Http\Controllers\ConfiguracoesController::class, 'novacategoria'])->name('nova.categoria');
 Route::middleware('auth')->post('/configuracoes/comentariospadroes', [App\Http\Controllers\ConfiguracoesController::class, 'novocomentariopadrao'])->name('novo.comentariopadrao');
 

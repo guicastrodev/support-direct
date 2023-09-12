@@ -16,7 +16,7 @@ class CreatePessoasTable extends Migration
             $table->string('telefone')->nullable();
             $table->string('cpfcnpj')->nullable();
             $table->string('especialidade')->nullable();
-            $table->string('disponibilidade')->nullable();
+            $table->boolean('disponibilidade')->default(true);
             $table->unsignedBigInteger('departamentoID')->nullable();  
             $table->foreign('departamentoID')->references('id')->on('departamentos');                  
             $table->timestamps();

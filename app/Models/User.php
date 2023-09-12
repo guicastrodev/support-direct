@@ -65,4 +65,21 @@ class User extends Authenticatable
     {
         return $this->hasMany(MsgPadrao::class,'usuarioID');
     } 
+
+    public function chamadosGestor()
+    {
+        return $this->hasMany(Chamado::class,'gestorID');
+    }     
+
+    public function chamadosTecnico()
+    {
+        return $this->hasMany(Chamado::class,'tecnicoID');
+    }     
+
+    public function chamadosRequerente()
+    {
+        return $this->hasMany(Chamado::class,'requerenteID');
+    }     
+
+
 }

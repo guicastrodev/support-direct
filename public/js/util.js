@@ -64,13 +64,29 @@ function listFiles(){
 function openModal(){
     
     var modal = document.getElementById("modal");
-    modal.style.display = "block";
+    modal.style.display = "block";    
+    modal.querySelector('input:not([type="hidden"])').focus();
 
     window.onclick = function(event) {
         if (event.target == modal) {
           modal.style.display = "none";
         }
     }
+
+    var perfil = document.getElementById('perfil');
+
+    if(perfil){
+        var dpgroup = document.getElementById('dp-group');
+
+        perfil.addEventListener('change', function() {
+            /* 2 - Gestor; 4 - Técnico */
+            if (perfil.value === '2'||perfil.value === '4') {
+                dpgroup.style.display = 'block';
+            } else {
+                dpgroup.style.display = 'none';
+            }
+          });    
+    };    
 }
 
 function closeModal(){

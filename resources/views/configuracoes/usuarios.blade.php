@@ -14,8 +14,8 @@
         </tr>
         @foreach($usuarios as $usuario)
         <tr class="sel">        
-            <td><a href="#" >{{ $usuario->name }}</a></td>
-            <td><a href="#" >{{ $usuario->perfil->nome }}</a></td>
+            <td><a href="{{route('configuracoes.usuario', $usuario->id)}}" >{{ $usuario->name }}</a></td>
+            <td><a href="{{route('configuracoes.usuario', $usuario->id)}}" >{{ $usuario->perfil->nome }}</a></td>
         </tr>
         @endforeach
     </table>
@@ -30,8 +30,8 @@
                     </div>
                     <div class="container-flex"> 
                         <div class="group-flex-m">           
-                            <label for="name">Nome:</label>
-                            <input type="text" name="name" id="name" required>
+                            <label for="nome">Nome:</label>
+                            <input type="text" name="nome" id="nome" required>
                         </div>
                     </div>    
                         
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="container-flex"> 
-                        <div class="group-fix mb-4">
+                        <div class="group-fix mb-4 ml-0">
                             <label for="perfil">Perfil:</label>
                                 <select name="perfil" id="perfil" >
                                     @foreach ($perfis as $perfil)
@@ -52,9 +52,19 @@
                                     @endforeach
                                 </select>
                         </div>
+                        <div class="group-fix mb-4 mr-1" id="dp-group">
+                            <label for="departamento">Departamento:</label>
+                                <select name="departamento" id="departamento" >
+                                    @foreach ($departamentos as $departamento)
+                                    <option value="{{ $departamento->id }}">
+                                        {{ $departamento->nome }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                        </div>                        
                         <div class="group-flex-m mb-4">
-                            <label for="password">Senha:</label>
-                            <input type="password" name="password" id="password" required>
+                            <label for="senha">Senha:</label>
+                            <input type="password" name="senha" id="senha" required>
                         </div>
                     </div>
                         <div class="container-flex"> 

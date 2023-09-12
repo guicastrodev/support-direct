@@ -194,8 +194,16 @@ th {
 }
 
 
-.group-fix select{
+.group-fix select{    
     padding: 4px;
+}
+
+.ml-0{
+    margin-left: 0 !important;
+}
+
+.mr-1{
+    margin-right: 10px !important;
 }
 
 .group-fix label,
