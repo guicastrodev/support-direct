@@ -136,4 +136,11 @@ class ConfiguracoesController extends Controller
 
         return view('configuracoes.comentarios-padroes',compact('comentariospadroes'));        
     }
+
+    public function removercomentariopadrao($id){
+        $comentariopadrao = ComentarioPadrao::find($id);
+        $comentariopadrao->delete();
+
+        return redirect()->back()->with('mensagem', 'Comentário Padrão removido com sucesso!' );
+    }    
 }

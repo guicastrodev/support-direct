@@ -10,7 +10,12 @@
     <table>
         @foreach($comentariospadroes as $comentariopadrao)
         <tr class="sel">        
-            <td style="width:100vw; min-width: 200px;"><a href="#" >{{ $comentariopadrao->mensagem }}</a></td>
+        <td style="width:93vw; min-width: 200px;"><a href="#" >{{ $comentariopadrao->mensagem }}</a></td>
+        <form method="POST" action="{{ route('configuracoes.comentariopadrao-remover', ['id' => $comentariopadrao->id]) }}">
+            @csrf      
+            @method('DELETE')
+            <td style="width:52w; min-width: 20px;"><button type="submit" class="btn-reg" title="Remover Registro"><img src="{{ asset('img/ico-delete-reg.png') }}"></button></td>        
+        </form>        
         </tr>
         @endforeach
     </table>

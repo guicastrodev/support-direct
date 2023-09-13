@@ -227,7 +227,8 @@ th {
 }
 
 .btn-link,
-.btn-img {
+.btn-img,
+.btn-reg {
     border-radius: 3px;
     background-color: #333;
     color: #fff;
@@ -250,20 +251,32 @@ th {
     padding: 10px 35px;           
 }
 
+.btn-reg {
+    width: 40px;
+    height: 25px;
+}
+
+.btn-reg  img {
+    width: 70%;
+}
+
+
 .btn-img img,
 .btn-img label {
     width: 100%;
 }
 
 .btn-link:hover,
-.btn-img:hover {    
+.btn-img:hover,
+.btn-reg:hover {    
     background-color: #444;
     color: #fff;
     box-shadow: none;
 }
 
 .btn-link:active,
-.btn-img:active {    
+.btn-img:active,
+.btn-reg:active {    
     background-color: #444;
     box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.747);    
 }
