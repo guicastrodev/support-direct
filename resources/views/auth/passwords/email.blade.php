@@ -32,9 +32,9 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" disabled>
+                        <div>
+                            <div class="group-title">
+                                <button type="submit" class="btn-link group-btn-xl">
                                     {{ __('Enviar Link para Redefinição de Senha') }}
                                 </button>
                             </div>

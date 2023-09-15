@@ -22,9 +22,9 @@ Route::middleware('auth')->get('/chamado/{id}',[App\Http\Controllers\ChamadosCon
 Route::middleware('auth')->put('/chamado/{id}', [App\Http\Controllers\ChamadosController::class, 'alterar'])->name('chamado.alterar');
 Route::middleware('auth')->post('/chamado', [App\Http\Controllers\ChamadosController::class, 'novo'])->name('chamado.novo');
 Route::middleware('auth')->get('/configuracoes/usuarios', [App\Http\Controllers\ConfiguracoesController::class, 'usuarios'])->name('configuracoes.usuarios');
-Route::middleware('auth')->post('/configuracoes/usuarios', [App\Http\Controllers\ConfiguracoesController::class, 'novousuario'])->name('novo.usuario');
-Route::middleware('auth')->get('/configuracoes/usuarios/{id}', [App\Http\Controllers\ConfiguracoesController::class, 'usuario'])->name('configuracoes.usuario');
-Route::middleware('auth')->post('/configuracoes/usuarios/{id}', [App\Http\Controllers\ConfiguracoesController::class, 'alterarusuario'])->name('configuracoes.usuario-alterar');
+Route::middleware('auth')->post('/configuracoes/usuario-novo', [App\Http\Controllers\ConfiguracoesController::class, 'novousuario'])->name('novo.usuario');
+Route::middleware('auth')->get('/configuracoes/usuario/{id}', [App\Http\Controllers\ConfiguracoesController::class, 'usuario'])->name('configuracoes.usuario');
+Route::middleware('auth')->post('/configuracoes/usuario/{id}', [App\Http\Controllers\ConfiguracoesController::class, 'alterarusuario'])->name('configuracoes.usuarioalterar');
 Route::middleware('auth')->get('/configuracoes/categorias', [App\Http\Controllers\ConfiguracoesController::class, 'categorias'])->name('configuracoes.categorias');
 Route::middleware('auth')->post('/configuracoes/categorias', [App\Http\Controllers\ConfiguracoesController::class, 'novacategoria'])->name('nova.categoria');
 Route::middleware('auth')->get('/configuracoes/comentariospadroes', [App\Http\Controllers\ConfiguracoesController::class, 'comentariospadroes'])->name('configuracoes.comentariospadroes');

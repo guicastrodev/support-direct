@@ -3,8 +3,8 @@
 <div class="painel">
     <div class="container-flex title">
         <div class="group-title">
-                <button onclick="openModal()" title="Nova Categoria"><img src="{{ asset('img/ico-add-category.png') }}"></button>            
-                <a>Categorias</a>                
+                <button class="btn-left" onclick="openModal()" title="Nova Categoria"><img src="{{ asset('img/ico-add-category.png') }}"> Nova</button>            
+                <a class="title-a-center">Categorias</a>                
         </div>
     </div>
     <table>

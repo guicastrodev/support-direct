@@ -29,55 +29,11 @@ class ConfiguracoesController extends Controller
         return view('configuracoes.usuario',compact('usuario','perfis','departamentos'));
     }
 
-    public function alterarusuario(Request $request, $id){
-        $usuario = User::find($id);
-
-
-        $request->session()->forget(['mensagem', 'erro']);
-        if(count(User::where('email',$request->email)->whereNotIn('id',[$usuario->id])->get())>0){
-            Session::flash('erro', 'Dados do usuário não alterados! Já existe um cadastro com o email informado!');
-        }else{
-            $usuario->email = $request->email;
-            $usuario->password = Hash::make($request->senha);
-            $usuario->perfilID = $request->perfil;
-
-            $usuario->save();
-
-            $pessoa = Pessoa::find($usuario->pessoaID);
-            $pessoa->departamentoID = $request->departamento;
-            if($request->ativo){        
-                $pessoa->disponibilidade = true;
-            }
-            else{
-                $pessoa->disponibilidade = false;
-            }
-
-            $pessoa->save(); 
-
-            Session::flash('mensagem', 'Dados do usuário alterados com sucesso!' );
-        }
-
-        return redirect()->route('configuracoes.usuarios');
-    }
-
-    public function categorias(){
-        $categorias = Categoria::all();
-        $departamentos = Departamento::all();
-
-        return view('configuracoes.categorias',compact('categorias','departamentos'));
-    }
-
-    public function comentariospadroes(){
-        $comentariospadroes = ComentarioPadrao::all();
-
-        return view('configuracoes.comentarios-padroes',compact('comentariospadroes'));
-    }
-
     public function novousuario(Request $request){
         $request->session()->forget(['mensagem', 'erro']);
 
         if(count(User::where('email',$request->email)->get())>0){
-            Session::flash('erro', 'Usuário não incluído! Já existe um cadastro com o email informado!');
+            return redirect()->back()->with('erro','Usuário não incluído! Já existe um cadastro com o email informado!');
         }else{
             // TO DO: Incluir lista de seleção de pessoa, e cadastro para inclusão de pessoa
 
@@ -98,14 +54,56 @@ class ConfiguracoesController extends Controller
             $usuario->pessoaID = $pessoa->id;        
             $usuario->save();
 
-            Session::flash('mensagem', 'Usuário incluído com sucesso!' );
+            return redirect()->back()->with('mensagem','Usuário incluído com sucesso!');
         }
+    }
 
-        $usuarios = User::all();
-        $perfis = Perfil::all()->whereNotIn('acesso',['adm']);
-        $departamentos = Departamento::all();        
 
-        return view('configuracoes.usuarios',compact('usuarios','perfis','departamentos'));
+    public function alterarusuario(Request $request, $id){
+        $usuario = User::find($id);
+
+        //$request->session()->forget(['mensagem', 'erro']);
+        if(count(User::where('email',$request->email)->whereNotIn('id',[$usuario->id])->get())>0){
+            return redirect()->route('configuracoes.usuarios')->with('erro','Dados do usuário não alterados! Já existe um cadastro com o email informado!');
+        }else{
+            $usuario->email = $request->email;
+            $usuario->password = Hash::make($request->senha);
+            $usuario->perfilID = $request->perfil;
+
+            $usuario->save();
+
+            $pessoa = Pessoa::find($usuario->pessoaID);
+            if(in_array($request->perfil,[2,4])){
+                $pessoa->departamentoID = $request->departamento;
+            }
+            else{
+                $pessoa->departamentoID = null;
+            }
+
+            if($request->ativo){        
+                $pessoa->disponibilidade = true;
+            }
+            else{
+                $pessoa->disponibilidade = false;
+            }
+
+            $pessoa->save(); 
+
+            return redirect()->route('configuracoes.usuarios')->with('mensagem','Dados do usuário alterados com sucesso!');
+        }
+    }
+
+    public function categorias(){
+        $categorias = Categoria::all();
+        $departamentos = Departamento::all();
+
+        return view('configuracoes.categorias',compact('categorias','departamentos'));
+    }
+
+    public function comentariospadroes(){
+        $comentariospadroes = ComentarioPadrao::all();
+
+        return view('configuracoes.comentarios-padroes',compact('comentariospadroes'));
     }
 
     public function novacategoria(Request $request){
@@ -116,12 +114,7 @@ class ConfiguracoesController extends Controller
         $categoria->departamentoID = $request->departamento;
         $categoria->save();
 
-        $departamentos = Departamento::all();
-        $categorias = Categoria::all();
-
-        Session::flash('mensagem', 'Categoria incluída com sucesso!' );
-
-        return view('configuracoes.categorias',compact('categorias','departamentos'));
+        return redirect()->back()->with('mensagem', 'Categoria incluída com sucesso!');        
     } 
     
     public function novocomentariopadrao(Request $request){
@@ -130,11 +123,7 @@ class ConfiguracoesController extends Controller
         $comentariospadroes->usuarioID = auth()->id();
         $comentariospadroes->save();
 
-        $comentariospadroes = ComentarioPadrao::all();        
-
-        Session::flash('mensagem', 'Comentário Padrão incluído com sucesso!' );
-
-        return view('configuracoes.comentarios-padroes',compact('comentariospadroes'));        
+        return redirect()->back()->with('mensagem', 'Comentário Padrão incluído com sucesso!');
     }
 
     public function removercomentariopadrao($id){

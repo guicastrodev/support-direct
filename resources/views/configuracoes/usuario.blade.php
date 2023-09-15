@@ -7,7 +7,7 @@
         </div>
     </div>            
     <div>
-        <form method="POST" action="{{ route('configuracoes.usuario-alterar', $usuario->id)}}">            
+        <form method="POST" action="{{ route('configuracoes.usuarioalterar', $usuario->id)}}">            
         @csrf
         <div class="painel">
             <div class="container-flex"> 

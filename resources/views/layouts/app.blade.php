@@ -83,6 +83,14 @@
                     {{session()->forget(['erro'])}}                    
                 @endif
                 @yield('content')
+                <div class="modal-exclusao" id="msg-box-exclusao">
+                    <div class="modal-exclusao-content">
+                        <span class="close-exclusao" onclick="fechaConfirmacaoExclusao()">&times;</span>
+                        <p>O registro selecionado será excluido?</p>
+                        <button onclick="confirmaExclusao()">Confirmar</button>
+                        <button onclick="fechaConfirmacaoExclusao()">Cancelar</button>
+                    </div>
+                </div>
             </main>
         </div>
     </body>

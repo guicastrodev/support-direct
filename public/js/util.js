@@ -72,21 +72,6 @@ function openModal(){
           modal.style.display = "none";
         }
     }
-
-    var perfil = document.getElementById('perfil');
-
-    if(perfil){
-        var dpgroup = document.getElementById('dp-group');
-
-        perfil.addEventListener('change', function() {
-            /* 2 - Gestor; 4 - Técnico */
-            if (perfil.value === '2'||perfil.value === '4') {
-                dpgroup.style.display = 'block';
-            } else {
-                dpgroup.style.display = 'none';
-            }
-          });    
-    };    
 }
 
 function closeModal(){
@@ -98,3 +83,38 @@ function addMsgPadrao(msg){
     closeModal();
     addComment(msg);
 }
+
+function abreConfirmacaoExclusao(rota) {
+    document.getElementById('form-exclusao').action = rota;
+    document.getElementById('msg-box-exclusao').style.display = 'block';
+}
+
+function fechaConfirmacaoExclusao() {
+    document.getElementById('msg-box-exclusao').style.display = 'none';
+}
+
+function confirmaExclusao() {
+    fechaConfirmacaoExclusao();
+    document.getElementById('form-exclusao').submit();
+}
+
+var perfil = document.getElementById('perfil');
+
+if(perfil){
+    var dpgroup = document.getElementById('dp-group');
+
+    if (perfil.value === '2'||perfil.value === '4') {
+        dpgroup.style.display = 'block';
+    } else {
+        dpgroup.style.display = 'none';
+    }
+
+    perfil.addEventListener('change', function() {
+        /* 2 - Gestor; 4 - Técnico */
+        if (perfil.value === '2'||perfil.value === '4') {
+            dpgroup.style.display = 'block';
+        } else {
+            dpgroup.style.display = 'none';
+        }
+      });    
+};    

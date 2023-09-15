@@ -4,14 +4,19 @@
     <div class="painel">
         <form action="{{route('chamados.exportar')}}" method="POST">
             @csrf
-            <div class="container-flex">
-                @if($perfil->acesso!='gestor')
-                    <a class="btn-img btn-left"  title="Novo Chamado" href="{{route('chamado.visualizar','novo')}}"><img src="{{ asset('img/ico-new-ticket.png') }}"></a>
-                @endif        
-                @if($perfil->acesso=='cliente')
-                    <button type="submit" class="btn-img btn-right"  title="Exportar Dados"><img src="{{ asset('img/ico-export.png') }}"></button>    
-                @endif   
-            </div>
+            <div class="container-flex title">
+                <div class="group-title">
+                        @if($perfil->acesso!='gestor')
+                        <a class="title-a-btn" title="Novo Chamado" href="{{route('chamado.visualizar','novo')}}"><img src="{{ asset('img/ico-new-ticket.png') }}"> Novo</a>
+                        @endif 
+                        @if($perfil->acesso=='cliente')
+                            <a class="title-a-center">Meus Chamados</a>                
+                            <button class="btn-right"  type="submit" title="Exportar Dados"><img src="{{ asset('img/ico-export.png') }}"> Exportar</button>    
+                        @else
+                            <a class="title-a-center">Chamados</a>                
+                        @endif   
+                </div>
+            </div>            
             <table>
                 <tr>
                     @if($perfil->acesso=='cliente')

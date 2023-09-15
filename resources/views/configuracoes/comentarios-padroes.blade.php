@@ -3,21 +3,21 @@
 <div class="painel">
     <div class="container-flex title">
         <div class="group-title">
-                <button onclick="openModal()" title="Novo Comentário Padrão"><img src="{{ asset('img/ico-add-com-padrao.png') }}"></button>            
-                <a>Comentários Padrões</a>                
+                <button class="btn-left" onclick="openModal()" title="Novo Comentário Padrão"><img src="{{ asset('img/ico-add-com-padrao.png') }}"> Novo</button>            
+                <a class="title-a-center">Comentários Padrões</a>                
         </div>
     </div>
-    <table>
-        @foreach($comentariospadroes as $comentariopadrao)
-        <tr class="sel">        
-        <td style="width:93vw; min-width: 200px;"><a href="#" >{{ $comentariopadrao->mensagem }}</a></td>
-        <form method="POST" action="{{ route('configuracoes.comentariopadrao-remover', ['id' => $comentariopadrao->id]) }}">
-            @csrf      
-            @method('DELETE')
-            <td style="width:52w; min-width: 20px;"><button type="submit" class="btn-reg" title="Remover Registro"><img src="{{ asset('img/ico-delete-reg.png') }}"></button></td>        
+    <table>        
+        <form method="POST" id='form-exclusao'>
+            @foreach($comentariospadroes as $comentariopadrao)
+                <tr class="sel">        
+                <td style="width:93vw; min-width: 200px;"><a href="#" >{{ $comentariopadrao->mensagem }}</a></td>
+                    @csrf      
+                    @method('DELETE')                        
+                    <td style="width:52w; min-width: 20px;"><button type="button" onclick="abreConfirmacaoExclusao('{{ route('configuracoes.comentariopadrao-remover', ['id' => $comentariopadrao->id]) }}')" class="btn-reg" title="Remover Registro"><img src="{{ asset('img/ico-delete-reg.png') }}"></button></td>        
+                </tr>
+            @endforeach
         </form>        
-        </tr>
-        @endforeach
     </table>
 </div>
 <div class="modal" id="modal">
