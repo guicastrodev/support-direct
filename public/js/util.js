@@ -27,9 +27,11 @@ function addComment(texto){
     grupoDescricao.appendChild(descricao);
     listaDescricoes.appendChild(grupoDescricao);
     botaoComentario.classList.add('btn-disabled');
+    botaoComentario.onclick = null;
 
     if(botaoComentarioPadrao){
-        botaoComentarioPadrao.classList.add('btn-disabled');    
+        botaoComentarioPadrao.classList.add('btn-disabled');
+        botaoComentarioPadrao.onclick = null;
     }
 
     var botaoAnexo = document.getElementById('ad-anexo');
@@ -64,8 +66,11 @@ function listFiles(){
 function openModal(){
     
     var modal = document.getElementById("modal");
-    modal.style.display = "block";    
-    modal.querySelector('input:not([type="hidden"])').focus();
+    modal.style.display = "block";  
+    
+    if(modal.querySelector('input:not([type="hidden"])')) {
+        modal.querySelector('input:not([type="hidden"])').focus();
+    }    
 
     window.onclick = function(event) {
         if (event.target == modal) {

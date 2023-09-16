@@ -29,8 +29,39 @@ class ChamadosController extends Controller
 
     private function NovaIteracao($chamadoID, $usuarioID, $descricao, $files)
     {
+        function Saudacao(){
+            $hora_atual = date("H");
+    
+            $saudacao = "";
+    
+            if ($hora_atual >= 6 && $hora_atual < 12) {
+                $saudacao = "Bom dia";
+            } elseif ($hora_atual >= 12 && $hora_atual < 18) {
+                $saudacao = "Boa tarde";
+            } else {
+                $saudacao = "Boa noite";
+            }
+    
+            return $saudacao;
+        }
+
+        function Traducao($_texto, $_dicionario) {
+            foreach ($_dicionario as $chave => $traducao) {
+                $_texto = str_replace($chave, $traducao, $_texto);
+            }
+            return $_texto;
+        }
+
+        $requerente = Chamado::find($chamadoID)->requerente->name;
+        $responsavel = User::find($usuarioID)->name;
+
+        $dicionario = array();
+        $dicionario['<requerente>']= $requerente;
+        $dicionario['<responsavel>']= $responsavel;
+        $dicionario['<saudacao>'] = Saudacao();
+
         $iteracao = new Iteracao;
-        $iteracao->descricao = $descricao;
+        $iteracao->descricao = Traducao($descricao, $dicionario);
         $iteracao->datahora = Now();
         $iteracao->usuarioID = $usuarioID;
         $iteracao->chamadoID = $chamadoID;
@@ -41,7 +72,7 @@ class ChamadosController extends Controller
         if ($files) {
             foreach ($files as $file) {
 
-                $nomeFTP = Str::uuid();;
+                $nomeFTP = Str::uuid();
 
                 Storage::disk('ftp')->put($localAnexo . $nomeFTP, file_get_contents($file));
 

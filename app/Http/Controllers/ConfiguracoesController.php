@@ -101,7 +101,7 @@ class ConfiguracoesController extends Controller
     }
 
     public function comentariospadroes(){
-        $comentariospadroes = ComentarioPadrao::all();
+        $comentariospadroes = ComentarioPadrao::where('usuarioID',auth()->id())->get();
 
         return view('configuracoes.comentarios-padroes',compact('comentariospadroes'));
     }
