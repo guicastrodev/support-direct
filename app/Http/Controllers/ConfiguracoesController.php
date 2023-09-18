@@ -47,7 +47,7 @@ class ConfiguracoesController extends Controller
             //
 
             $usuario = new User;
-            $usuario->name = $request->nome;
+            $usuario->name = $request->apelido;
             $usuario->email = $request->email;
             $usuario->password = Hash::make($request->senha);        
             $usuario->perfilID = $request->perfil;
@@ -67,6 +67,7 @@ class ConfiguracoesController extends Controller
             return redirect()->route('configuracoes.usuarios')->with('erro','Dados do usuário não alterados! Já existe um cadastro com o email informado!');
         }else{
             $usuario->email = $request->email;
+            $usuario->name =  $request->apelido;
             $usuario->password = Hash::make($request->senha);
             $usuario->perfilID = $request->perfil;
 

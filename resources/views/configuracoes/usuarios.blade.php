@@ -31,11 +31,14 @@
                     <div class="container-flex"> 
                         <div class="group-flex-m">           
                             <label for="nome">Nome:</label>
-                            <input type="text" name="nome" id="nome" required>
+                            <input type="text" name="nome" id="nome" required>                            
                         </div>
-                    </div>    
-                        
+                    </div>                                             
                     <div class="container-flex">                     
+                        <div class="group-flex-m">           
+                            <label for="apelido">Apelido:</label>
+                            <input type="text" name="apelido" id="apelido" required>                            
+                        </div>
                         <div class="group-flex-m">
                             <label for="email">E-mail:</label>
                             <input type="text" name="email" id="email" required>
