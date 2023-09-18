@@ -10,6 +10,9 @@
 
         <title>{{ config('app.name', 'Support Direct') }}</title>
 
+        <link rel="icon" href="{{ asset('img/ico-headset.png') }}" type="image/x-icon">
+        <link rel="shortcut icon" href="{{ asset('img/ico-headset.png') }}" type="image/x-icon">        
+
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="{{ asset('js/util.js') }}" defer></script>
@@ -26,12 +29,12 @@
     <body>
         <div id="app">
             <nav class="two-columns navbar bg-white shadow-sm">
-                <div class="left-col mx-3">
-                    <a class="navbar-brand left-col" href="{{ url('/') }}">
-                        {{ config('app.name', 'Support Direct') }}
+                <div class="left-title mx-3">
+                    <a class="navbar-brand font-linear-gradient" href="{{ url('/') }}">
+                        <img src="{{ asset('img/ico-headset.png') }}">{{ config('app.name', 'Support Direct') }}
                     </a>
                 </div>
-                <div class="nav-item right-col mx-4">
+                <div class="nav-item right-title mx-4">
                     @auth
                         <form id="logout-form" action="{{ route('logout') }}" method="POST">
                             @csrf
@@ -54,7 +57,7 @@
                                 @if($perfil->acesso=='gestor')
                                     <li><a onclick="alertaPrototipo()" href="#">Relatórios</a></li>
                                 @endif
-                                <li class="has-submenu {{ Request::is('configuracoes/usuarios') || Request::is('configuracoes/categorias') || Request::is('configuracoes/msgpadroes') ? 'active' : '' }}">
+                                <li class="has-submenu {{ Request::is('configuracoes/usuarios') || Request::is('configuracoes/categorias') || Request::is('configuracoes/comentariospadroes') ? 'active' : '' }}">
                                     <a href="#">Configurações</a>
                                     <ul class="submenu">
                                         @if($perfil->acesso=='gestor')

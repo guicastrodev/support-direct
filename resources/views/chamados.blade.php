@@ -54,7 +54,7 @@
                 @foreach ($chamados as $chamado)
                 <tr class="sel">
                     @if($perfil->acesso=='cliente')
-                        <th><input type="checkbox" name="selecionados[]" id="selecionados[]" value="{{$chamado->id}}"></th>                        
+                        <td style="text-align: center;"><input type="checkbox" name="selecionados[]" id="selecionados[]" value="{{$chamado->id}}"></td>                        
                     @endif   
                     <td><a href="{{route('chamado.visualizar',$chamado->id)}}" >{{ $chamado->id }}</a></td>
                     <td><a href="{{route('chamado.visualizar',$chamado->id)}}" >{{ $chamado->titulo }}</a></td>
