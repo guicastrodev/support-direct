@@ -76,7 +76,7 @@
         <div class="group-flex" id="lista-descricoes">
             @foreach ($chamado->iteracoes as $iteracao)
             <div>
-                <textarea disabled name="" id="" >{{ $iteracao->descricao }}</textarea>
+                <textarea disabled class="auto-height" >{{ $iteracao->descricao }}</textarea>
                 <div>
                     <p>{{ date('d/m/Y H:i', strtotime($iteracao->datahora )) }} : {{ $iteracao->usuario->name }} - Anexos [
                     @foreach ($iteracao->anexos as $anexo)
@@ -117,7 +117,7 @@
                 <tbody style="min-height: 150px;">
                 @foreach($comentariospadroes as $comentariopadrao)
                     <tr class="sel">        
-                        <td style="width:50vw; min-width: 200px;"><a onclick="addMsgPadrao('{{$comentariopadrao->mensagem}}')">{{ $comentariopadrao->mensagem }}</a></td>
+                        <td style="width:50vw; min-width: 200px;"><a onclick="addMsgPadrao('{{rawurlencode($comentariopadrao->mensagem)}}')">{{ $comentariopadrao->mensagem }}</a></td>
                     </tr>
                 @endforeach
                 </tbody>

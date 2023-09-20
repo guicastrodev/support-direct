@@ -232,8 +232,11 @@ class ChamadosController extends Controller
             $chamados = Chamado::find($request->selecionados);
             $destinatario = User::find(auth()->id())->email;
             Mail::to($destinatario)->send(new ChamadosExportacao($chamados));
-        };
-        return redirect()->route('chamados.lista')->with('mensagem', 'Dados selecionados exportados com sucesso!');
+            return redirect()->route('chamados.lista')->with('mensagem', 'Dados exportados com sucesso!');
+        }else{
+            return redirect()->route('chamados.lista')->with('erro', 'Nenhum registro foi selecionado para exportação!');
+        }
+        
     }    
 
 }

@@ -65,6 +65,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    color: var(--cor-fonte-corpo);
 }
 
 .font-linear-gradient{
@@ -120,6 +121,15 @@ td a{
 
 th {
     background-color: var(--cor-fundo-tb-title);
+}
+
+textarea {
+    width: 100%;
+    height: auto;  
+    resize: none;  
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    color: var(--cor-fonte-corpo);     
 }
 
 textarea:disabled,
@@ -221,15 +231,6 @@ img{
     flex: 1; 
     min-width: 200px; 
     margin: 5px 10px 5px 0;    
-}
-
-.group-flex textarea {
-    width: 100%;
-    resize: none;    
-    border: 1px solid #ccc;
-    box-sizing: border-box;    
-    height: auto;
-    color: var(--cor-fonte-corpo);     
 }
 
 .group-fix{
@@ -532,10 +533,13 @@ img{
 }
 
 .close-exclusao {
-    color: #aaaaaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
+}
+
+.close-exclusao:hover {
+    cursor: pointer;
 }
 
 .modal-exclusao button{

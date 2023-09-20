@@ -9,7 +9,8 @@ function addComment(texto){
     var descricao = document.createElement("textarea");
     var grupoDescricao = document.createElement("div");
     descricao.style.width = '100%'; 
-    descricao.id = 'descricao';   
+    descricao.id = 'descricao';
+    descricao.title = 'Descrição do Chamado (preenchimento obrigatório)';
     descricao.name = 'descricao';  
     descricao.required = true; 
     grupoDescricao.id = 'grupo-descricao';   
@@ -86,7 +87,7 @@ function closeModal(){
 
 function addMsgPadrao(msg){
     closeModal();
-    addComment(msg);
+    addComment(decodeURIComponent(msg));
 }
 
 function abreConfirmacaoExclusao(rota) {
@@ -105,6 +106,7 @@ function confirmaExclusao() {
 
 var perfil = document.getElementById('perfil');
 
+// Exibe ou oculta o campo departamento, de acordo com o perfil
 if(perfil){
     var dpgroup = document.getElementById('dp-group');
 
@@ -122,4 +124,17 @@ if(perfil){
             dpgroup.style.display = 'none';
         }
       });    
-};    
+}; 
+
+// Ajusta a altura das descrições dos chamados
+function ajustarAlturaTextarea(textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 2 + 'px';
+}
+
+var textareas = document.querySelectorAll('.auto-height');
+
+if (textareas){
+    textareas.forEach(function(textarea) {
+        ajustarAlturaTextarea(textarea);});
+}

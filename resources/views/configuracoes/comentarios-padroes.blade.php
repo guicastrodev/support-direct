@@ -32,7 +32,7 @@
                 <div class="container-flex"> 
                     <div class="group-flex-m">           
                         <label for="comentario">Comentário Padrão:</label>
-                        <input type="text" name="comentario" id="comentario" required>
+                        <textarea style="width: 100%;" title="Descrição do Comentário Padrão (preenchimento obrigatório)" name="comentario" id="comentario" required></textarea>                        
                     </div>
                 </div>    
                 <div class="container-flex"> 
