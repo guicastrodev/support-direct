@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Auth::routes();
 
 Route::get('/', function () {return redirect('login');});
 
@@ -30,7 +33,3 @@ Route::middleware('auth')->post('/configuracoes/categorias', [App\Http\Controlle
 Route::middleware('auth')->get('/configuracoes/comentariospadroes', [App\Http\Controllers\ConfiguracoesController::class, 'comentariospadroes'])->name('configuracoes.comentariospadroes');
 Route::middleware('auth')->post('/configuracoes/comentariospadroes', [App\Http\Controllers\ConfiguracoesController::class, 'novocomentariopadrao'])->name('novo.comentariopadrao');
 Route::middleware('auth')->delete('/configuracoes/comentariopadrao/{id}', [App\Http\Controllers\ConfiguracoesController::class, 'removercomentariopadrao'])->name('configuracoes.comentariopadrao-remover');
-
-
-
-Auth::routes();
