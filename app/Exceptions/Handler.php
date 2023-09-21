@@ -42,8 +42,8 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        if (($e instanceof \Illuminate\Session\TokenMismatchException) && (!Auth::check())) {
+        if (!Auth::check()) {
             return redirect()->route('login');
-        }   
+        }          
     }
 }

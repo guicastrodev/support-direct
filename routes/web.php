@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 
 Route::get('/', function () {return redirect('login');});
-
 Route::middleware('auth')->get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::middleware('auth')->get('/chamados', [App\Http\Controllers\ChamadosController::class, 'lista'])->name('chamados.lista');
 Route::middleware('auth')->post('/chamados/exportacao', [App\Http\Controllers\ChamadosController::class, 'exportacao'])->name('chamados.exportar');
