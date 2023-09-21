@@ -114,6 +114,7 @@ class ChamadosController extends Controller
                 break;
             case 'tecnico':
                 $chamados = Chamado::where('tecnicoID', $userID)->orWhere('requerenteID', $userID)->get();
+                $chamados = $chamados->whereNotIn('status',['Resolvido', 'Cancelado']);
                 break;
             case 'gestor':
                 $chamados = Chamado::where('gestorID', $userID)->get();
