@@ -18,8 +18,8 @@ class CreateAnexosTable extends Migration
             $table->string('hashftp');
             $table->string('nome');
             $table->string('localizacao');
-            $table->unsignedBigInteger('iteracaoID');
-            $table->foreign('iteracaoID')->references('id')->on('iteracoes')->onDelete('cascade');            
+            $table->unsignedBigInteger('interacaoID');
+            $table->foreign('interacaoID')->references('id')->on('interacoes')->onDelete('cascade');            
             $table->timestamps();
         });
     }

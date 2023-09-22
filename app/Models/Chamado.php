@@ -46,9 +46,9 @@ class Chamado extends Model
         return $this->belongsTo(Categoria::class,'categoriaID');
     }  
     
-    public function iteracoes()
+    public function interacoes()
     {
-        return $this->hasMany(Iteracao::class,'chamadoID');
+        return $this->hasMany(Interacao::class,'chamadoID');
     }    
 
     public function ultimaAtualizacao()

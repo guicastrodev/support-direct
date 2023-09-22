@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Chamado;
 use App\Models\User;
 use App\Models\Perfil;
-use App\Models\Iteracao;
+use App\Models\Interacao;
 use App\Models\Categoria;
 use App\Models\Anexo;
 use App\Models\ComentarioPadrao;
@@ -27,7 +27,7 @@ class ChamadosController extends Controller
         }
     }
 
-    private function NovaIteracao($chamadoID, $usuarioID, $descricao, $files)
+    private function NovaInteracao($chamadoID, $usuarioID, $descricao, $files)
     {
         function Saudacao(){
             $hora_atual = date("H");
@@ -60,27 +60,31 @@ class ChamadosController extends Controller
         $dicionario['<responsavel>']= $responsavel;
         $dicionario['<saudacao>'] = Saudacao();
 
-        $iteracao = new Iteracao;
-        $iteracao->descricao = Traducao($descricao, $dicionario);
-        $iteracao->datahora = Now();
-        $iteracao->usuarioID = $usuarioID;
-        $iteracao->chamadoID = $chamadoID;
-        $iteracao->save();
+        $interacao = new Interacao;
+        $interacao->descricao = Traducao($descricao, $dicionario);
+        $interacao->datahora = Now();
+        $interacao->usuarioID = $usuarioID;
+        $interacao->chamadoID = $chamadoID;
+        $interacao->save();
 
         $localAnexo = '/anexos/';
 
         if ($files) {
             foreach ($files as $file) {
 
-                $nomeFTP = Str::uuid();
+                $nomearquivo = $file->getClientOriginalName();
 
-                Storage::disk('ftp')->put($localAnexo . $nomeFTP, file_get_contents($file));
+                $extensaoarquivo = pathinfo($nomearquivo, PATHINFO_EXTENSION);
+
+                $nomeFTP = Str::uuid() .'.'.$extensaoarquivo;
+
+                Storage::disk('ftp')->put($localAnexo . $nomeFTP , file_get_contents($file));
 
                 $anexo = new Anexo;
                 $anexo->hashftp = $nomeFTP;
-                $anexo->nome = $file->getClientOriginalName();
+                $anexo->nome = $nomearquivo;
                 $anexo->localizacao = 'https://www.castrodev.com.br'.$localAnexo;
-                $anexo->iteracaoID = $iteracao->id;
+                $anexo->interacaoID = $interacao->id;
                 $anexo->save();
             }
         }
@@ -166,7 +170,7 @@ class ChamadosController extends Controller
         $chamado->save();
 
         if ($request->descricao) {
-            $this->NovaIteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));        
+            $this->NovaInteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));        
         }
 
         $destinatarios = [];
@@ -205,7 +209,7 @@ class ChamadosController extends Controller
 
        
         if ($request->descricao) {
-            $this->NovaIteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));
+            $this->NovaInteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));
         }
 
         $destinatarios = [];
@@ -237,7 +241,25 @@ class ChamadosController extends Controller
         }else{
             return redirect()->route('chamados.lista')->with('erro', 'Nenhum registro foi selecionado para exportação!');
         }
-        
-    }    
+    }  
+    
+    public function baixarouvisualizar($id) {
+        $anexo = Anexo::find($id);
+
+        $pathToFile = $anexo->localizacao . $anexo->hashftp;
+
+        if (file_exists($pathToFile)) {
+            $mimeType = mime_content_type($pathToFile);
+
+            if (in_array($mimeType, ['application/pdf', 'text/plain'])) {
+                return response()->file($pathToFile, ['Content-Disposition' => 'inline; filename="' . $anexo->nome. '"']);
+            } else {
+                return response()->download($pathToFile, $anexo->nome);
+            }
+        } else {
+            dd('erro');
+            return response()->view('errors.404', [], 404);
+        }
+    }        
 
 }

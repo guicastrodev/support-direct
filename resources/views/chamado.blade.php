@@ -74,13 +74,14 @@
         </div>
 
         <div class="group-flex" id="lista-descricoes">
-            @foreach ($chamado->iteracoes as $iteracao)
+            @foreach ($chamado->interacoes as $interacao)
             <div>
-                <textarea disabled class="auto-height" >{{ $iteracao->descricao }}</textarea>
+                <textarea disabled class="auto-height" >{{ $interacao->descricao }}</textarea>
                 <div>
-                    <p>{{ date('d/m/Y H:i', strtotime($iteracao->datahora )) }} : {{ $iteracao->usuario->name }} - Anexos [
-                    @foreach ($iteracao->anexos as $anexo)
+                    <p>{{ date('d/m/Y H:i', strtotime($interacao->datahora )) }} : {{ $interacao->usuario->name }} - Anexos [
+                    @foreach ($interacao->anexos as $anexo)
                         <a href= '{{$anexo->localizacao}}{{$anexo->hashftp}}' target="_blank">{{$anexo->nome}}</a><a>; </a>
+                        <!--<a href="{{route('anexo',$anexo->id)}}">{{$anexo->nome}}</a><a>; </a>-->
                     @endforeach
                     ]
                     </p>

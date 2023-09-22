@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIteracoesTable extends Migration
+class CreateInteracoesTable extends Migration
 {
     public function up()
     {
-        Schema::create('iteracoes', function (Blueprint $table) {
+        Schema::create('interacoes', function (Blueprint $table) {
             $table->id();
             $table->text('descricao');
             $table->dateTime('datahora');
@@ -22,6 +22,6 @@ class CreateIteracoesTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('iteracoes');
+        Schema::dropIfExists('interacoes');
     }
 }

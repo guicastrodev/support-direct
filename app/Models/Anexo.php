@@ -15,7 +15,7 @@ class Anexo extends Model
         'hashftp',
         'nome',
         'localizacao',
-        'iteracaoID',
+        'interacaoID',
     ];
 
     protected $dates = [
@@ -23,8 +23,8 @@ class Anexo extends Model
         'updated_at',
     ];    
 
-    public function iteracao()
+    public function interacao()
     {
-        return $this->belongsTo(Iteracao::class);
+        return $this->belongsTo(Interacao::class);
     }
 }

@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Iteracao extends Model
+class Interacao extends Model
 {
     use HasFactory;
 
-    protected $table = 'iteracoes';
+    protected $table = 'interacoes';
 
     protected $fillable = [
         'descricao',
@@ -35,6 +35,6 @@ class Iteracao extends Model
 
     public function anexos()
     {
-        return $this->hasMany(Anexo::class,'iteracaoID');
+        return $this->hasMany(Anexo::class,'interacaoID');
     } 
 }
