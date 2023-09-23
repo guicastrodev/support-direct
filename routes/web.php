@@ -23,7 +23,6 @@ Route::middleware('auth')->post('/chamados/exportacao', [App\Http\Controllers\Ch
 Route::middleware('auth')->get('/chamado/{id}',[App\Http\Controllers\ChamadosController::class, 'visualizar'])->name('chamado.visualizar');
 Route::middleware('auth')->put('/chamado/{id}', [App\Http\Controllers\ChamadosController::class, 'alterar'])->name('chamado.alterar');
 Route::middleware('auth')->post('/chamado', [App\Http\Controllers\ChamadosController::class, 'novo'])->name('chamado.novo');
-Route::middleware('auth')->get('/anexo/{id}', [App\Http\Controllers\ChamadosController::class, 'baixarouvisualizar'])->name('anexo');
 Route::middleware('auth')->get('/configuracoes/usuarios', [App\Http\Controllers\ConfiguracoesController::class, 'usuarios'])->name('configuracoes.usuarios');
 Route::middleware('auth')->post('/configuracoes/usuario-novo', [App\Http\Controllers\ConfiguracoesController::class, 'novousuario'])->name('novo.usuario');
 Route::middleware('auth')->get('/configuracoes/usuario/{id}', [App\Http\Controllers\ConfiguracoesController::class, 'usuario'])->name('configuracoes.usuario');

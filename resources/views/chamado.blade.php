@@ -80,8 +80,12 @@
                 <div>
                     <p>{{ date('d/m/Y H:i', strtotime($interacao->datahora )) }} : {{ $interacao->usuario->name }} - Anexos [
                     @foreach ($interacao->anexos as $anexo)
-                        <a href= '{{$anexo->localizacao}}{{$anexo->hashftp}}' target="_blank">{{$anexo->nome}}</a><a>; </a>
-                        <!--<a href="{{route('anexo',$anexo->id)}}">{{$anexo->nome}}</a><a>; </a>-->
+                        @if($anexo->soVisualizar())
+                        <a title="visualizar" href= '{{$anexo->localizacao . $anexo->hashftp}}' target="_blank">{{$anexo->nome}}</a>
+                        <a title="download" href="anexos/{{$anexo->hashftp}}" download="{{$anexo->nome}}"><img style="height: 18px;" src="{{ asset('img/ico-download.png') }}"></a><a>; </a>
+                        @else
+                        <a title="download" href="anexos/{{$anexo->hashftp}}" download="{{$anexo->nome}}">{{$anexo->nome}}</a><a>; </a>                        
+                        @endif
                     @endforeach
                     ]
                     </p>

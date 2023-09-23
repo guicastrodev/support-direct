@@ -107,7 +107,7 @@ class ChamadosController extends Controller
         }
         return $gestorID;
     }    
-
+    
     public function lista()
     {
         $userID = auth()->id();
@@ -241,25 +241,5 @@ class ChamadosController extends Controller
         }else{
             return redirect()->route('chamados.lista')->with('erro', 'Nenhum registro foi selecionado para exportação!');
         }
-    }  
-    
-    public function baixarouvisualizar($id) {
-        $anexo = Anexo::find($id);
-
-        $pathToFile = $anexo->localizacao . $anexo->hashftp;
-
-        if (file_exists($pathToFile)) {
-            $mimeType = mime_content_type($pathToFile);
-
-            if (in_array($mimeType, ['application/pdf', 'text/plain'])) {
-                return response()->file($pathToFile, ['Content-Disposition' => 'inline; filename="' . $anexo->nome. '"']);
-            } else {
-                return response()->download($pathToFile, $anexo->nome);
-            }
-        } else {
-            dd('erro');
-            return response()->view('errors.404', [], 404);
-        }
-    }        
-
+    }      
 }
