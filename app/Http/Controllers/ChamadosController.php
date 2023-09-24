@@ -169,6 +169,10 @@ class ChamadosController extends Controller
 
         $chamado->save();
 
+        //touch(): para atualizar o update_at, mesmo quando houver apenas inclusão de uma nova interação
+        //ou seja, o chamado, efetivamente, não tenha sido alterado
+        $chamado->touch();
+
         if ($request->descricao) {
             $this->NovaInteracao($chamado->id, auth()->id(), $request->descricao, $request->file('files'));        
         }

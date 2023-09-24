@@ -26,7 +26,7 @@
                         <th style="width:15vw; min-width: 127px;">Criado Em</th>            
                         <th style="width:17vw; min-width: 130px;">Técnico</th>
                         <th style="width:17vw; min-width: 167px;">Situação</th>
-                        <th style="width:15vw; min-width: 138px;">Ultima Atualização</th>            
+                        <th style="width:15vw; min-width: 138px;">Última Atualização</th>            
                     @endif
 
                     @if($perfil->acesso=='tecnico')        
