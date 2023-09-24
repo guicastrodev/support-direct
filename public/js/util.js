@@ -3,11 +3,11 @@ function alertaPrototipo(){
 }  
 
 function addComment(texto){
-    var listaDescricoes = document.getElementById("lista-descricoes");
-    var botaoComentario = document.getElementById("ad-comentario");
-    var botaoComentarioPadrao = document.getElementById("ad-com-padrao");
-    var descricao = document.createElement("textarea");
-    var grupoDescricao = document.createElement("div");
+    const listaDescricoes = document.getElementById("lista-descricoes");
+    const botaoComentario = document.getElementById("ad-comentario");
+    const botaoComentarioPadrao = document.getElementById("ad-com-padrao");
+    const descricao = document.createElement("textarea");
+    const grupoDescricao = document.createElement("div");
     descricao.style.width = '100%'; 
     descricao.id = 'descricao';
     descricao.title = 'Descrição do Chamado (preenchimento obrigatório)';
@@ -35,7 +35,7 @@ function addComment(texto){
         botaoComentarioPadrao.onclick = null;
     }
 
-    var botaoAnexo = document.getElementById('ad-anexo');
+    const botaoAnexo = document.getElementById('ad-anexo');
     if(botaoAnexo){
         botaoAnexo.classList.remove('btn-disabled');
         botaoAnexo.setAttribute('for', 'files[]');
@@ -58,15 +58,20 @@ function listFiles(){
         const separador = document.createElement('a');        
         listItem.textContent = fileName;
         separador.textContent = '; ';
-        listItem.href = "https://www.castrodev.com.br/anexos/" + fileName;
+        listItem.href = '#';
         grupoDescricao.appendChild(listItem);
         grupoDescricao.appendChild(separador);
     }
+
+    if(document.getElementById("descricao")){
+        document.getElementById("descricao").value = '[anexando arquivo(s)]';
+    }
+    
 }
 
 function openModal(){
     
-    var modal = document.getElementById("modal");
+    const modal = document.getElementById("modal");
     modal.style.display = "block";  
     
     if(modal.querySelector('input:not([type="hidden"])')) {
@@ -81,7 +86,7 @@ function openModal(){
 }
 
 function closeModal(){
-    var modal = document.getElementById("modal");
+    const modal = document.getElementById("modal");
     modal.style.display = "none";
 }
 
@@ -104,11 +109,11 @@ function confirmaExclusao() {
     document.getElementById('form-exclusao').submit();
 }
 
-var perfil = document.getElementById('perfil');
+const perfil = document.getElementById('perfil');
 
 // Exibe ou oculta o campo departamento, de acordo com o perfil
 if(perfil){
-    var dpgroup = document.getElementById('dp-group');
+    const dpgroup = document.getElementById('dp-group');
 
     if (perfil.value === '2'||perfil.value === '4') {
         dpgroup.style.display = 'block';
@@ -132,7 +137,7 @@ function ajustarAlturaTextarea(textarea) {
     textarea.style.height = textarea.scrollHeight + 2 + 'px';
 }
 
-var textareas = document.querySelectorAll('.auto-height');
+const textareas = document.querySelectorAll('.auto-height');
 
 if (textareas){
     textareas.forEach(function(textarea) {
