@@ -17,7 +17,7 @@
                         @endif   
                 </div>
             </div>            
-            <table>
+            <table class="tabela-ordena">
                 <tr>
                     @if($perfil->acesso=='cliente')
                         <th style="width:3vw; min-width: 10px;"></th>

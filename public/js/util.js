@@ -143,3 +143,60 @@ if (textareas){
     textareas.forEach(function(textarea) {
         ajustarAlturaTextarea(textarea);});
 }
+
+function ordena(coluna){
+
+    function sortTable(columnIndex, ascending) {
+        var rows = $("table tr:gt(0)").toArray();
+        
+        rows.sort(function(a, b) {
+          var textA = $(a).find("td:eq(" + columnIndex + ") a").text().toUpperCase();
+          var textB = $(b).find("td:eq(" + columnIndex + ") a").text().toUpperCase();
+          return ascending ? (textA > textB ? 1 : -1) : (textA < textB ? 1 : -1);
+        });
+        
+        $("table tr:gt(0)").remove();
+        $("table").append(rows);
+      }
+    
+      var ascending = coluna.classList.contains("asc");
+    
+    coluna.classList.remove("asc","desc");
+
+    var columnIndex;
+
+    var cells = document.querySelectorAll("table tr:first-child th");
+
+    for (var i = 0; i < cells.length; i++) {
+        if (cells[i].textContent.trim() === coluna.textContent.trim()) {
+            columnIndex = i;
+            break;
+        }
+    }
+
+    sortTable(columnIndex, ascending);
+
+    coluna.classList.add(ascending ? "desc" : "asc");
+
+    const spans = coluna.parentNode.querySelectorAll("span");
+    for (let i = 0; i < spans.length; i++) {
+        spans[i].parentNode.removeChild(spans[i]);            
+    }
+
+    var span = document.createElement('span');
+    coluna.insertBefore(span, coluna.firstChild);
+}
+
+const tabelas = document.querySelectorAll(".tabela-ordena");
+
+if(tabelas){
+    for (let i = 0; i < tabelas.length; i++) {
+        const table_headers = tabelas[i].querySelectorAll("th");
+        for (let i = 0; i < table_headers.length; i++) {
+            table_headers[i].onclick= function(){ordena(this); };  
+        }          
+    }
+}
+
+
+

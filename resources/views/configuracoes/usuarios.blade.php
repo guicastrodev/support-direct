@@ -7,7 +7,7 @@
             <a class="title-a-center">Usuários</a>                
         </div>
     </div>
-    <table>
+    <table class="tabela-ordena">
         <tr>
             <th style="width:80vw; min-width: 290px;">Nome</th>
             <th style="width:20vw; min-width: 57px;">Perfil</th>

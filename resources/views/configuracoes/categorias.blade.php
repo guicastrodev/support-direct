@@ -7,7 +7,7 @@
                 <a class="title-a-center">Categorias</a>                
         </div>
     </div>
-    <table>
+    <table class="tabela-ordena">
         <tr>
             <th style="width:50vw; min-width: 200px;">Nome</th>
             <th style="width:50vw; min-width: 200px;">Departamento</th>

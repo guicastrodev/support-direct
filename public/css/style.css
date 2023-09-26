@@ -564,6 +564,21 @@ img{
     box-shadow: inset 0px 2px 4px var(--cor-sombra-principal);        
 }
 
+.tabela-ordena th.asc span{
+    background-image: url('../img/ico-up.png');
+    background-size: contain;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+
+.tabela-ordena th.desc span{
+    background-image: url('../img/ico-down.png');
+    background-size: contain;    
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
 
 @media (max-width: 615px) {
     .menu ul {
