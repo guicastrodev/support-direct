@@ -20,11 +20,7 @@ class ChamadosController extends Controller
 {
     private function ChamadoAtualizado($destinatarios,$chamado, $novo = false)    
     {
-        foreach($destinatarios as $destinatario){
-            if($destinatario){
-                Mail::to($destinatario)->send(new ChamadoAtualizado($chamado, $novo));
-            }
-        }
+        Mail::to($destinatarios)->send(new ChamadoAtualizado($chamado, $novo));
     }
 
     private function NovaInteracao($chamadoID, $usuarioID, $descricao, $files)

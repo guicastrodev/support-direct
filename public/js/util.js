@@ -115,15 +115,15 @@ const perfil = document.getElementById('perfil');
 if(perfil){
     const dpgroup = document.getElementById('dp-group');
 
-    if (perfil.value === '2'||perfil.value === '4') {
+    if (perfil.value === '1'||perfil.value === '2') {
         dpgroup.style.display = 'block';
     } else {
         dpgroup.style.display = 'none';
     }
 
     perfil.addEventListener('change', function() {
-        /* 2 - Gestor; 4 - Técnico */
-        if (perfil.value === '2'||perfil.value === '4') {
+        /* 1 - Gestor; 2 - Técnico */
+        if (perfil.value === '1'||perfil.value === '2') {
             dpgroup.style.display = 'block';
         } else {
             dpgroup.style.display = 'none';
