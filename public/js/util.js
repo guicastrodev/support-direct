@@ -209,6 +209,18 @@ function ordena(coluna) {
         return horas;
       }
 
+      function parseMinutos(dataHoraStr) {
+        const [dataStr, horaStr] = dataHoraStr.split(' ');
+        const [dia, mes, ano] = dataStr.split('/').map(Number);
+        const [horas, minutos] = horaStr.split(':').map(Number);
+        const dataHora = new Date(ano, mes - 1, dia, horas, minutos);
+        const agora = new Date();
+      
+        const diferenca = agora - dataHora;
+
+        return Math.floor(diferenca / (1000 * 60));
+      }     
+
       var rows = $("table tr:gt(0)").toArray();
   
       rows.sort(function (a, b) {
@@ -216,14 +228,17 @@ function ordena(coluna) {
         var cellB = $(b).find("td:eq(" + columnIndex + ")");
         var textA = cellA.find("a").text();
         var textB = cellB.find("a").text();
-
-        var tempoA = parseHoras(textA);
-        var tempoB = parseHoras(textB);
-
         if (coluna.textContent.trim() === "Última Atualização") {  
-          return ascending ? (tempoA > tempoB ? 1 : -1) : (tempoA < tempoB ? 1 : -1);
-        } else {
-          return ascending ? (textA > textB ? 1 : -1) : (textA < textB ? 1 : -1);
+            var tempoA = parseHoras(textA);
+            var tempoB = parseHoras(textB);
+            return ascending ? (tempoA > tempoB ? 1 : -1) : (tempoA < tempoB ? 1 : -1);
+        } else if (coluna.textContent.trim() === "Criado Em") {  
+            var tempoA = parseMinutos(textA);
+            var tempoB = parseMinutos(textB);
+            return ascending ? (tempoA > tempoB ? 1 : -1) : (tempoA < tempoB ? 1 : -1);           
+        }
+        else {
+            return ascending ? (textA > textB ? 1 : -1) : (textA < textB ? 1 : -1);
         }
       });
   
