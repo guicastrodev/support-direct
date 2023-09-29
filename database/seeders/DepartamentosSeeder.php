@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 use App\Models\Departamento;
 
 class DepartamentosSeeder extends Seeder
@@ -15,15 +14,17 @@ class DepartamentosSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create();
+        $departamentos = [
+            ['nome' => 'TI Sistemas', 'descricao' => 'TI Sistemas', 'created_at' => now(), 'updated_at' => now()],
+            ['nome' => 'TI Infra', 'descricao' => 'Infraestrutura de Tecnologia', 'created_at' => now(), 'updated_at' => now()],
+            ['nome' => 'TE', 'descricao' => 'Tecnologia da Educação', 'created_at' => now(), 'updated_at' => now()],
+            ['nome' => 'Financeiro', 'descricao' => 'Departamento Financeiro', 'created_at' => now(), 'updated_at' => now()],
+            ['nome' => 'DP&RH', 'descricao' => 'Departamento Pessoa e Recursos Humanos', 'created_at' => now(), 'updated_at' => now()]                                    
+        ];
 
-        foreach (range(1, 5) as $index) {
-            Departamento::create([
-                'nome' => $faker->unique()->word,
-                'descricao' => $faker->sentence,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+        foreach ($departamentos as $departamento) {
+            Departamento::create($departamento);
         }
+
     }
 }

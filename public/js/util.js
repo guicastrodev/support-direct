@@ -144,6 +144,7 @@ if (textareas){
         ajustarAlturaTextarea(textarea);});
 }
 
+/*
 function ordena(coluna){
 
     function sortTable(columnIndex, ascending) {
@@ -186,7 +187,78 @@ function ordena(coluna){
     var span = document.createElement('span');
     coluna.insertBefore(span, coluna.firstChild);
 }
+*/
 
+// Nova versão para contemplar a ordenação por tempo transcorrido, e não por string //
+function ordena(coluna) {
+    function sortTable(columnIndex, ascending) {
+        function parseHoras(text) {
+
+            if(text.includes('Mais de um ano')){
+                horas = 365 * 24;
+            }else if(text.includes(' dias atrás')){
+                horas = parseInt(text.replace(' dias atrás', ""));
+                horas = horas * 24;
+            }
+            else if(text.includes(' horas atrás')){
+                horas = parseInt(text.replace(' horas atrás', ""));
+            }
+            else if(text.includes('Menos de uma hora atrás')){
+                horas = 0;
+            }   
+        return horas;
+      }
+
+      var rows = $("table tr:gt(0)").toArray();
+  
+      rows.sort(function (a, b) {
+        var cellA = $(a).find("td:eq(" + columnIndex + ")");
+        var cellB = $(b).find("td:eq(" + columnIndex + ")");
+        var textA = cellA.find("a").text();
+        var textB = cellB.find("a").text();
+
+        var tempoA = parseHoras(textA);
+        var tempoB = parseHoras(textB);
+
+        if (coluna.textContent.trim() === "Última Atualização") {  
+          return ascending ? (tempoA > tempoB ? 1 : -1) : (tempoA < tempoB ? 1 : -1);
+        } else {
+          return ascending ? (textA > textB ? 1 : -1) : (textA < textB ? 1 : -1);
+        }
+      });
+  
+      $("table tr:gt(0)").remove();
+      $("table").append(rows);
+    }
+  
+    var currentAscending = coluna.classList.contains("asc");
+    var newAscending = !currentAscending;
+  
+    var columnIndex;
+  
+    var cells = document.querySelectorAll("table tr:first-child th");
+  
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i].textContent.trim() === coluna.textContent.trim()) {
+        columnIndex = i;
+        break;
+      }
+    }
+  
+    sortTable(columnIndex, newAscending);
+  
+    coluna.classList.remove("asc", "desc");
+    coluna.classList.add(newAscending ? "asc" : "desc");
+  
+    const spans = coluna.parentNode.querySelectorAll("span");
+    for (let i = 0; i < spans.length; i++) {
+      spans[i].parentNode.removeChild(spans[i]);
+    }
+  
+    var span = document.createElement("span");
+    coluna.insertBefore(span, coluna.firstChild);
+} 
+  
 const tabelas = document.querySelectorAll(".tabela-ordena");
 
 if(tabelas){
