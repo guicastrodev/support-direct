@@ -36,7 +36,7 @@
                     </div>
                 </div>    
                 <div class="container-flex"> 
-                    <a class="btn-img" onclick="closeModal()" title="Cancelar Inclusão"><img src="{{ asset('img/ico-cancel.png') }}"></a>                        
+                    <a class="btn-img" onclick="closeModal()" title="Cancelar Inclusão/Fechar"><img src="{{ asset('img/ico-cancel.png') }}"></a>                        
                     <button class="btn-img" type="submit" title="Gravar Inclusão"><img src="{{ asset('img/ico-done.png') }}"></button>
                 </div>
             </div>

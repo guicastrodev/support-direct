@@ -105,7 +105,7 @@
                 <label class="btn-img btn-disabled" id="ad-anexo" ><img src="{{ asset('img/ico-attach.png') }}"></label>
                 <input onchange="listFiles()" type="file" title="Adicionar Anexo" name="files[]" id="files[]" multiple>
             @endif
-                <a class="btn-img"  title="Cancelar Alterações" href="/"><img src="{{ asset('img/ico-cancel.png') }}"></a>               
+                <a class="btn-img"  title="Cancelar Alterações/Fechar" href="/"><img src="{{ asset('img/ico-cancel.png') }}"></a>               
                 <button class="btn-img" type="submit" title="Gravar Alterações"><img src="{{ asset('img/ico-done.png') }}"></button>            
         </div>         
     </form>  

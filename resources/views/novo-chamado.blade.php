@@ -38,7 +38,7 @@
                 <div class="container-flex">
                     <label class="btn-img" for="files[]"><img src="{{ asset('img/ico-attach.png') }}"></label>
                     <input onchange="listFiles()" type="file" title="Adicionar Anexo" name="files[]" id="files[]" multiple>
-                    <a class="btn-img"  title="Cancelar Alterações" href="/chamados"><img src="{{ asset('img/ico-cancel.png') }}"></a>
+                    <a class="btn-img"  title="Cancelar Alterações/Fechar" href="/chamados"><img src="{{ asset('img/ico-cancel.png') }}"></a>
                     <button class="btn-img" type="submit" title="Gravar Alterações"><img src="{{ asset('img/ico-done.png') }}"></button>
                 </div>
             </div>

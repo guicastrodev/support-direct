@@ -57,7 +57,7 @@
                 </div>
             </div>
                 <div class="container-flex"> 
-                    <a class="btn-img"  title="Cancelar Alterações" href="{{route('configuracoes.usuarios')}}"><img src="{{ asset('img/ico-cancel.png') }}"></a>
+                    <a class="btn-img"  title="Cancelar Alterações/Fechar" href="{{route('configuracoes.usuarios')}}"><img src="{{ asset('img/ico-cancel.png') }}"></a>
                     <button class="btn-img" type="submit" title="Gravar Alterações"><img src="{{ asset('img/ico-done.png') }}"></button>
                 </div>
             </div>
